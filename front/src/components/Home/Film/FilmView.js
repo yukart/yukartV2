@@ -64,7 +64,7 @@ class FilmView extends React.Component {
 	    		          value={this.state.value}
 	    		          onChange={this.handleChange}
 	    		        />
-	    			    <RaisedButton label="Primary" primary={true} onClick={this.handleButton}/>
+	    			    <RaisedButton label="Search" primary={true} onClick={this.handleButton}/>
 	    			    </div>
 	    				<div className="row">
 	    			    	{this.props.film !== null && this.props.film !== "" &&
