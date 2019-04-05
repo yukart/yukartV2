@@ -1,6 +1,3 @@
-import {
-  REGISTER_PAGE_UNLOADED
-} from '../constants/actionTypes';
 
 const defaultState = {
   appName: 'YukArt',
@@ -10,8 +7,6 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case REGISTER_PAGE_UNLOADED:
-      return state;
     case "ADD_FILM":
     	state.films.push(action.film);
     	return {
