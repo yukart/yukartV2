@@ -1,6 +1,3 @@
-import {
-  REGISTER_PAGE_UNLOADED
-} from '../constants/actionTypes';
 
 const defaultState = {
   appName: 'YukArt',
