@@ -3,7 +3,6 @@ package fr.dauphine.sia2.yukArt;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +19,12 @@ public class ReferentielRestController {
 			@PathVariable String name) throws ParseException {
 
 		FilmService filmService = new FilmService();
-		JSONObject jsonFilm = filmService.searchMovieByTitle(name);
+		Film film = filmService.searchMovieByTitle(name);
 
-		if (jsonFilm.get("Response").toString().equals("False")) {
+		if (film == null) {
 			return null;
 		}
-		Film film = new Film(jsonFilm.get("Title").toString(), jsonFilm.get("Year").toString(),
-				jsonFilm.get("Released").toString(), jsonFilm.get("Runtime").toString(),
-				jsonFilm.get("Genre").toString(), jsonFilm.get("Plot").toString());
+
 		return film;
 	}
 
