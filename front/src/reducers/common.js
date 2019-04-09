@@ -1,8 +1,7 @@
 
 const defaultState = {
   appName: 'YukArt',
-  films: [""],
-  film: null
+  film: []
 };
 
 export default (state = defaultState, action) => {

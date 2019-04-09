@@ -1,5 +1,7 @@
 package fr.dauphine.sia2.yukArt;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,11 +17,11 @@ import fr.dauphine.sia2.yukArt.services.FilmService;
 public class ReferentielRestController {
 
 	@RequestMapping("/api/filmByTitle/{name}")
-	public Film getFilmDescriptionByTitle(HttpServletRequest request, HttpServletResponse response,
+	public List<Film> getFilmDescriptionByTitle(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable String name) throws ParseException {
 
 		FilmService filmService = new FilmService();
-		Film film = filmService.searchMovieByTitle(name);
+		List<Film> film = filmService.searchAllMovieByTitle(name);
 
 		if (film == null) {
 			return null;

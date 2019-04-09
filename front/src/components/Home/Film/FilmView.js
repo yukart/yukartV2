@@ -57,7 +57,7 @@ class FilmView extends React.Component {
     return (
     			<Paper zDepth={5}>
     				<Banner appName={this.props.appName}/>
-    		        <div className="container page">
+						<div className="container page">
 	    				<div>
     					<TextField
 	    		          id="text-field-controlled"
@@ -67,28 +67,33 @@ class FilmView extends React.Component {
 	    			    <RaisedButton label="Search" primary={true} onClick={this.handleButton}/>
 	    			    </div>
 	    				<div className="row">
-	    			    	{this.props.film !== null && this.props.film !== "" &&
-		    					<Paper style={style.paper} zDepth={2}>
-			    					<p> Your research </p>
-			    					<ul>
-			    						<li style={style.puce}>Title : {this.props.film.title} </li>
-			    						<li style={style.puce}>Year : {this.props.film.year} </li>
-			    						<li style={style.puce}>Release date : {this.props.film.release_date} </li>
-			    						<li style={style.puce}>Runtime : {this.props.film.runtime} </li>
-			    						<li style={style.puce}>Genre : {this.props.film.genre} </li>
-			    						<li style={style.puce}>Synopsis : {this.props.film.synopsis} </li>
+								{this.props.film !== null && this.props.film.length !== 0 &&
+									<h1> Your research : </h1>
+								}
 
-			    					</ul>
-			    				</Paper>
-	    			    	}
-	    			    	{this.props.film !== null && this.props.film === "" &&
-		    					<Paper style={style} zDepth={2}>
-			    					<p> Movie not found : error 404 !!! </p>
-			    				</Paper>
-	    			    	}
-    		          </div>
-    		        </div>
-    		     </Paper>
+								{this.props.film !== null && this.props.film.length !== 0 &&
+									this.props.film.map((film) => 
+										<Paper style={style.paper} zDepth={2}>
+											<img alt="poster" width="25%" src={film.poster_url}/>
+											<ul>
+												<li style={style.puce}>Title : {film.title} </li>
+												<li style={style.puce}>Year : {film.year} </li>
+												<li style={style.puce}>Release date : {film.release_date} </li>
+												<li style={style.puce}>Runtime : {film.runtime} </li>
+												<li style={style.puce}>Genre : {film.genre} </li>
+												<li style={style.puce}>Synopsis : {film.synopsis} </li>
+											</ul>
+										</Paper>
+									)
+								}
+								{this.props.film !== null && this.props.film === "" &&
+									<Paper style={style} zDepth={2}>
+										<p> Movie not found : error 404 !!! </p>
+									</Paper>
+								}
+							</div>
+						</div>
+					</Paper>
 
     	   
     );
@@ -96,7 +101,6 @@ class FilmView extends React.Component {
 }
 const mapStateToProps = state => ({
   appName: state.common.appName,
-  films: state.common.films,
   film: state.common.film
 });
 

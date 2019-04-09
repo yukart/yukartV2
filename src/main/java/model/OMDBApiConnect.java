@@ -14,6 +14,7 @@ public class OMDBApiConnect {
 
 	private static String API_KEY = "a9383e9";
 	private static final String SEARCH_URL = "http://www.omdbapi.com/?t=TITLE&apikey=" + API_KEY;
+	private static final String SEARCH_ALL_URL = "http://www.omdbapi.com/?s=TITLE&apikey=" + API_KEY;
 	private static final String SEARCH_URL_BY_YEAR = "http://www.omdbapi.com/?t=TITLE&y=YEAR&apikey=" + API_KEY;
 	private static final String SEARCH_BY_IMDB_URL = "http://www.omdbapi.com/?i=IMDB&apikey=" + API_KEY;
 
@@ -53,7 +54,15 @@ public class OMDBApiConnect {
 		String requestUrl = SEARCH_URL.replaceAll("TITLE", movieTitle);
 
 		return sendGetRequest(requestUrl);
+	}
 
+	public String searchAllMovieByTitle(String title) {
+
+		String movieTitle = title.replaceAll("\\s+", "+");
+
+		String requestUrl = SEARCH_ALL_URL.replaceAll("TITLE", movieTitle);
+
+		return sendGetRequest(requestUrl);
 	}
 
 	public String searchMovieByTitleAndYear(String title, int year) {

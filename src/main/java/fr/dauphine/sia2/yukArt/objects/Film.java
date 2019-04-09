@@ -8,19 +8,29 @@ public class Film {
 	private String runtime;
 	private String genre;
 	private String synopsis;
+	private String poster_url;
 
-	public Film(String title, String year, String release_date, String runtime, String genre, String synopsis) {
-		super();
+	public Film(String title, String year, String release_date, String runtime, String genre, String synopsis,
+			String poster_url) {
 		this.title = title;
 		this.year = year;
 		this.release_date = release_date;
 		this.runtime = runtime;
 		this.genre = genre;
 		this.synopsis = synopsis;
+		this.poster_url = poster_url;
 	}
 
 	public String getTitle() {
 		return title;
+	}
+
+	public String getPoster_url() {
+		return poster_url;
+	}
+
+	public void setPoster_url(String poster_url) {
+		this.poster_url = poster_url;
 	}
 
 	public void setTitle(String title) {
