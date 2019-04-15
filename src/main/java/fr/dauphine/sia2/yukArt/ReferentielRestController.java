@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.dauphine.sia2.yukArt.objects.Film;
 import fr.dauphine.sia2.yukArt.services.FilmService;
+import com.wrapper.spotify.models.Artist;
+import fr.dauphine.sia2.yukArt.services.MusicService;
 
 @RestController
 public class ReferentielRestController {
@@ -30,8 +32,17 @@ public class ReferentielRestController {
 		return film;
 	}
 
-	@RequestMapping("/api")
-	public String test() {
-		return "Hello";
+	@RequestMapping("/api/artist/{name}")
+	public List<Artist> getArtist(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable String name) throws ParseException {
+
+		MusicService musicService = new MusicService();
+		List<Artist> artists = musicService.searchArtist(name);
+
+		if (artists == null) {
+			return null;
+		}
+
+		return artists;
 	}
 }

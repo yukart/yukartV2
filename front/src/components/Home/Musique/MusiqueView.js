@@ -29,13 +29,40 @@ class MusiqueView extends React.Component {
   render() {
 	  return (
   			<Paper zDepth={5}>
-  				<Banner appName={this.props.appName}/>
-  		        <div className="container page">
-  		          <div className="row">
-  		            <p> Liste de musique : </p>
-  		          </div>
-  		        </div>
-  		     </Paper>
+            <Banner appName={this.props.appName}/>
+            <div className="container page">
+              <div>
+              <TextField
+                    id="text-field-controlled"
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                  />
+                <RaisedButton label="Search" primary={true} onClick={this.handleButton}/>
+                </div>
+              <div className="row">
+                {this.props.artist !== null && this.props.artist.length !== 0 &&
+                  <h1> Your research : </h1>
+                }
+
+                {this.props.artist !== null && this.props.artist.length !== 0 &&
+                  this.props.artist.map((artist) => 
+                    <Paper style={style.paper} zDepth={2}>
+                      <img alt="poster" width="25%" src={artist.images}/>
+                      <ul>
+                        <li style={style.puce}>Name : {artist.name} </li>
+                        <li style={style.puce}>Genres : {artist.genres} </li>
+                      </ul>
+                    </Paper>
+                  )
+                }
+                {this.props.artist !== null && this.props.artist === "" &&
+                  <Paper style={style} zDepth={2}>
+                    <p> Artist not found : error 404 !!! </p>
+                  </Paper>
+                }
+              </div>
+            </div>
+          </Paper>
 
   	   
   );

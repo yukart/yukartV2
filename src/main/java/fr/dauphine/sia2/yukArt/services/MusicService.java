@@ -16,10 +16,10 @@ import model.SpotifyConnect;
 @Service
 public class MusicService {
 
-	public List<Artist> searchArtist(String name, String country)  {
+	public List<Artist> searchArtist(String name)  {
 		Api api = SpotifyConnect.connection();
 		List<Artist> artists = null;
-		final ArtistSearchRequest requestArtist = api.searchArtists(name).market(country).limit(10).build();
+		final ArtistSearchRequest requestArtist = api.searchArtists(name).limit(10).build();
 		try {
 			final Page<Artist> artistSearchResult = requestArtist.get();
 			artists = artistSearchResult.getItems();
@@ -28,10 +28,10 @@ public class MusicService {
 		}
 		return artists;
 	}
-	public List<Track> searchTrack(String name, String country)  {
+	public List<Track> searchTrack(String name)  {
 		Api api = SpotifyConnect.connection();
 		List<Track> tracks = null;
-		final TrackSearchRequest requestTrack = api.searchTracks(name).market(country).build();
+		final TrackSearchRequest requestTrack = api.searchTracks(name).build();
 		try {
 			final Page<Track> trackSearchResult = requestTrack.get();
 			tracks = trackSearchResult.getItems();
