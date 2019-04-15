@@ -8,6 +8,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 
 import searchArtist from '../../../actions/searchArtist.js';
+import searchTrack from '../../../actions/searchTrack.js';
+
 import Banner from '../Banner';
 
 const style = {
@@ -49,17 +51,30 @@ class MusiqueView extends React.Component {
 
   }
 
-  handleChange = (event) => {
+  handleChangeTrack = (event) => {
     this.setState({
-      value: event.target.value,
+      valueTrack : event.target.value,
+    });
+  };
+  handleChangeArtist = (event) => {
+    this.setState({
+      valueArtist : event.target.value,
     });
   };
     
-  handleButton = () => {
-    this.props.updateListArtist(this.state.value);
-    
+  handleButtonArtist = () => {
+    this.props.updateListArtist(this.state.valueArtist);
+    this.props.reset();
     this.setState({
-        value: ""
+        valueArtist: ""
+    });
+  };
+  handleButtonTrack = () => {
+    this.props.updateListTrack(this.state.valueTrack);
+    this.props.reset();
+
+    this.setState({
+        valueTrack: ""
     });
   };
   render() {
@@ -71,20 +86,20 @@ class MusiqueView extends React.Component {
                 <div style={style.gridItem}>
                   <TextField
                       id="text-field-controlled"
-                      value={this.state.value}
-                      onChange={this.handleChange}
+                      value={this.state.valueArtist}
+                      onChange={this.handleChangeArtist}
                     />
-                  <RaisedButton label="Search" primary={true} onClick={this.handleButton}/>
+                  <RaisedButton label="Search artist" primary={true} onClick={this.handleButtonArtist}/>
                 </div>
               
-                <b style={style.gridItem}>OU</b>
+                <b style={style.gridItem}>OR</b>
                 <div style={style.gridItem}>
                   <TextField
                         id="text-field-controlled"
-                        value={this.state.value}
-                        onChange={this.handleChange}
+                        value={this.state.valueTrack}
+                        onChange={this.handleChangeTrack}
                       />
-                  <RaisedButton label="Search" primary={true} onClick={this.handleButton}/>
+                  <RaisedButton label="Search track" primary={true} onClick={this.handleButtonTrack}/>
                 </div>
               </div>
               <div className="row">
@@ -127,6 +142,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateListArtist: (name) => dispatch(searchArtist(name)),
+  updateListTrack: (name) => dispatch(searchTrack(name)),
+  reset: () => 
+    dispatch({
+              type : 'RESET',
+              items : null,
+              error : null,
+              }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MusiqueView);

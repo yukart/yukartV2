@@ -2,7 +2,8 @@
 const defaultState = {
   appName: 'YukArt',
   film: [],
-  artist: []
+  artist: [],
+  track: [],
 };
 
 export default (state = defaultState, action) => {
@@ -12,11 +13,23 @@ export default (state = defaultState, action) => {
     	return {
 	    	...state
     	};
-      case "FETCH_ARTIST_SUCCESS":
+    case "FETCH_ARTIST_SUCCESS":
       state.artist = action.items;
       return {
         ...state
       };
+    case "RESET":
+        state.artist = [];
+        state.film = [];
+        state.track = [];
+        return {
+          ...state
+        };
+    case "FETCH_TRACK_SUCCESS":
+      state.track = action.items;
+      return {
+        ...state
+      }; 
     default:
       return state;
   }
