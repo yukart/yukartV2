@@ -9,6 +9,7 @@ import SearchAppBar from '../SearchAppBar';
 import Paper from 'material-ui/Paper';
 
 const style = {
+<<<<<<< HEAD
     paper: {
       height: '75%',
       width: '75%',
@@ -19,6 +20,18 @@ const style = {
     puce: {
       listStyleType: 'none'
     }
+=======
+  paper: {
+    height: '75%',
+    width: '75%',
+    margin: 20,
+    textAlign: 'center',
+    display: 'inline-block',
+  },
+  puce: {
+    listStyleType: 'none'
+  }
+>>>>>>> branch 'master' of https://github.com/yukart/yukartV2.git
 };
 
 class MusiqueView extends React.Component {
@@ -27,7 +40,9 @@ class MusiqueView extends React.Component {
 	    this.state = {
     		open: false,
 	    };
-	  }
+    }
+    
+    
   componentWillMount() {
    
 
