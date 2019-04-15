@@ -2,9 +2,24 @@ import Banner from '../Banner';
 import MainView from '../MainView';
 import React from 'react';
 import { connect } from 'react-redux';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import SearchAppBar from '../SearchAppBar';
 import Paper from 'material-ui/Paper';
+
+const style = {
+  paper: {
+    height: '75%',
+    width: '75%',
+    margin: 20,
+    textAlign: 'center',
+    display: 'inline-block',
+  },
+  puce: {
+    listStyleType: 'none'
+  }
+};
 
 class MusiqueView extends React.Component {
 	constructor(props) {
@@ -12,7 +27,9 @@ class MusiqueView extends React.Component {
 	    this.state = {
     		open: false,
 	    };
-	  }
+    }
+    
+    
   componentWillMount() {
    
 
