@@ -2,9 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import FilmView from './Home/Film/FilmView.js';
 import MusiqueView from './Home/Musique/MusiqueView.js';
+<<<<<<< HEAD
 import Login from './Connexion/Login.js';
 import Register from './Connexion/Register.js';
 
+=======
+import TrackView from './Home/Musique/TrackView.js';
+>>>>>>> branch 'master' of https://github.com/yukart/yukartV2.git
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -66,6 +70,11 @@ class App extends React.Component {
 	handleInscriptionClick = () => {
 		this.setState({show: "inscription"});
 	}
+  }
+  handleChangeTrack = () => {
+    this.setState({show: "track"});
+    this.handleChangeDrawer();
+  }
   getContent = () => {
 	  if(this.state.show === "home") {
 		  return (
@@ -99,7 +108,14 @@ class App extends React.Component {
 				<Register />
 			)
 		}
+		else if (this.state.show === "track"){
+		  return (
+		    <TrackView />
+		    )
+		}
+    }
   }
+  
   render() {
       return (
         <div>
@@ -135,9 +151,13 @@ class App extends React.Component {
                 primaryText={"Film"}
                 onClick={this.handleChangeFilm}
               />
-              <MenuItem
+            <MenuItem
                 primaryText={"Musique"}
           		onClick={this.handleChangeMusique}
+              />
+            <MenuItem
+                primaryText={"Track"}
+              onClick={this.handleChangeTrack}
               />
   		
           </Drawer>
