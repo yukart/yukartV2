@@ -66,7 +66,7 @@ class App extends React.Component {
 	handleInscriptionClick = () => {
 		this.setState({show: "inscription"});
 	}
-  }
+  
   handleChangeTrack = () => {
     this.setState({show: "track"});
     this.handleChangeDrawer();
@@ -109,8 +109,8 @@ class App extends React.Component {
 		    <TrackView />
 		    )
 		}
-    }
-  }
+    };
+  
   
   render() {
       return (
