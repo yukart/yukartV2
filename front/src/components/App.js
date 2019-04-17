@@ -2,13 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import FilmView from './Home/Film/FilmView.js';
 import MusiqueView from './Home/Musique/MusiqueView.js';
-<<<<<<< HEAD
 import Login from './Connexion/Login.js';
 import Register from './Connexion/Register.js';
-
-=======
 import TrackView from './Home/Musique/TrackView.js';
->>>>>>> branch 'master' of https://github.com/yukart/yukartV2.git
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
