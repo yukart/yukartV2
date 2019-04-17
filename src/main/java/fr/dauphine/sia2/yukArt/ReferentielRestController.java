@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.dauphine.sia2.yukArt.objects.Film;
 import fr.dauphine.sia2.yukArt.services.FilmService;
 import com.wrapper.spotify.models.Artist;
+import com.wrapper.spotify.models.Track;
+
 import fr.dauphine.sia2.yukArt.services.MusicService;
+import fr.dauphine.sia2.yukArt.services.TrackService;
 
 @RestController
 public class ReferentielRestController {
@@ -44,5 +47,18 @@ public class ReferentielRestController {
 		}
 
 		return artists;
+	}
+	@RequestMapping("/api/track/{name}")
+	public List<Track> getTrack(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable String name) throws ParseException {
+
+		TrackService trackService = new TrackService();
+		List<Track> tracks = trackService.searchTrack(name);
+
+		if (tracks == null) {
+			return null;
+		}
+
+		return tracks;
 	}
 }
