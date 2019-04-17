@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import FilmView from './Home/Film/FilmView.js';
 import MusiqueView from './Home/Musique/MusiqueView.js';
+import TrackView from './Home/Musique/TrackView.js';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -42,6 +43,10 @@ class App extends React.Component {
 	  this.setState({show: "musique"});
 	  this.handleChangeDrawer();
   }
+  handleChangeTrack = () => {
+    this.setState({show: "track"});
+    this.handleChangeDrawer();
+  }
   getContent = () => {
 	  if(this.state.show === "home") {
 		  return (
@@ -65,6 +70,11 @@ class App extends React.Component {
 				  <MusiqueView />
 		  )
 	  }
+    else if (this.state.show === "track"){
+      return (
+        <TrackView />
+        )
+    }
   }
   render() {
       return (
@@ -93,9 +103,13 @@ class App extends React.Component {
                 primaryText={"Film"}
                 onClick={this.handleChangeFilm}
               />
-              <MenuItem
+            <MenuItem
                 primaryText={"Musique"}
           		onClick={this.handleChangeMusique}
+              />
+            <MenuItem
+                primaryText={"Track"}
+              onClick={this.handleChangeTrack}
               />
   		
           </Drawer>

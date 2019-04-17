@@ -116,7 +116,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateListArtist: (name) => dispatch(searchArtist(name))
+  updateListArtist: (name) => dispatch(searchArtist(name)),
   reset: () => 
     dispatch({
               type : 'RESET',

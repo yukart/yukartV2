@@ -117,7 +117,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateListTrack: (name) => dispatch(searchTrack(name))
+  updateListTrack: (name) => dispatch(searchTrack(name)),
   reset: () => 
     dispatch({
               type : 'RESET',
