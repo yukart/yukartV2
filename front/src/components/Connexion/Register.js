@@ -20,9 +20,7 @@ class Register extends React.Component {
       <div>
         <MuiThemeProvider>
           <div>
-          <AppBar
-             title="Register"
-           />
+          <h1>Register</h1>
            <TextField
              hintText="Enter your First Name"
              floatingLabelText="First Name"

@@ -4,6 +4,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+
+import connexion from '../../actions/connexion.js'
+
+const style = {
+  margin: 15,
+ };
+
 class Login extends React.Component {
 constructor(props){
   super(props);
@@ -12,14 +19,17 @@ constructor(props){
   password:''
   }
  }
+
+handleClick = (username,password) => {
+  this.props.connexion(username,password);
+}
+
 render() {
     return (
       <div>
         <MuiThemeProvider>
           <div>
-          <AppBar
-             title="Login"
-           />
+            <h1> Login </h1>
            <TextField
              hintText="Enter your Username"
              floatingLabelText="Username"
@@ -33,14 +43,21 @@ render() {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
              <br/>
-             <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+             <RaisedButton label="Submit" primary={true} style={style} onClick={() => this.handleClick()}/>
          </div>
          </MuiThemeProvider>
       </div>
     );
   }
 }
-const style = {
- margin: 15,
-};
+
+const mapStateToProps = state => {
+  return {
+    appName: state.common.appName,
+  }};
+
+const mapDispatchToProps = dispatch => ({
+  connexion: (login,pass) => dispatch(connexion(login,pass)),
+});
+
 export default Login;
