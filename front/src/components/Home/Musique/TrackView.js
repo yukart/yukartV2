@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 
-import searchArtist from '../../../actions/searchArtist.js';
+import searchTrack from '../../../actions/searchTrack.js';
 import Banner from '../Banner';
 
 const style = {
@@ -30,13 +30,13 @@ const style = {
   }
 };
 
-class MusiqueView extends React.Component {
-	constructor(props) {
-	    super(props);
-	    this.state = {
+class TrackView extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
         open: false,
         value: "",
-	    };
+      };
     }
     
     
@@ -49,74 +49,75 @@ class MusiqueView extends React.Component {
 
   }
 
-  handleChangeArtist = (event) => {
+  handleChangeTrack = (event) => {
     this.setState({
-      valueArtist : event.target.value,
+      valueTrack : event.target.value,
     });
   };
     
-  handleButtonArtist = () => {
-    this.props.updateListArtist(this.state.valueArtist);
+  handleButtonTrack = () => {
+    this.props.updateListTrack(this.state.valueTrack);
     this.props.reset();
     this.setState({
-        valueArtist: ""
+        valueTrack: ""
     });
   };
   
   render() {
-	  return (
-  			<Paper zDepth={5}>
+    return (
+        <Paper zDepth={5}>
             <Banner appName={this.props.appName}/>
             <div className="container page">
               <div style={style.gridContainer}>
                 <div style={style.gridItem}>
                   <TextField
                       id="text-field-controlled"
-                      value={this.state.valueArtist}
-                      onChange={this.handleChangeArtist}
+                      value={this.state.valueTrack}
+                      onChange={this.handleChangeTrack}
                     />
-                  <RaisedButton label="Search artist" primary={true} onClick={this.handleButtonArtist}/>
+                  <RaisedButton label="Search track" primary={true} onClick={this.handleButtonTrack}/>
                 </div>
               </div>
               <div className="row">
-                {this.props.artist !== null && this.props.artist.length !== 0 &&
+                {this.props.track !== null && this.props.track.length !== 0 &&
                   <h1> Your research : </h1>
                 }
-                {this.props.artist !== null && this.props.artist.length !== 0 &&
-                  this.props.artist.map((artist) => 
+                {this.props.track !== null && this.props.track.length !== 0 &&
+                  this.props.track.map((track) => 
                     <Paper style={style.paper} zDepth={2}>
-                      {artist.images[0] !== undefined &&
-                        <img alt="poster" width="25%" src={artist.images[0].url}/>
+                      {track.images[0] !== undefined &&
+                        <img alt="poster" width="25%" src={track.images[0].url}/>
                       }
                       <ul>
-                        <li style={style.puce}>Name : {artist.name} </li>
-                        <li style={style.puce}>Genres : {artist.genres.map((genre) => genre+"; ")} </li>
-                        <li style={style.puce}>Popularité: {artist.popularity}%</li>
-                        <li style={style.puce}> <a href={artist.externalUrls.externalUrls.spotify} target="_blank" alt="lien spotify"> Ecouter cet artiste</a>  </li>
+                        <li style={style.puce}>Nom : {track.name} </li>
+                        <li style={style.puce}>Durée : {track.duration} </li>
+                        <li style={style.puce}>Artiste(s) : {track.artists.map((artist) => artist+"; ")} </li>
+                        <li style={style.puce}>Popularité: {track.popularity}%</li>
+                        <li style={style.puce}> <a href={track.externalUrls.externalUrls.spotify} target="_blank" alt="lien spotify"> Ecouter cette chanson</a>  </li>
                       </ul>
                     </Paper>
                   )
                 }
-                {this.props.artist !== null && this.props.artist === "" &&
+                {this.props.track !== null && this.props.track === "" &&
                   <Paper style={style} zDepth={2}>
-                    <p> Artist not found : error 404 !!! </p>
+                    <p> Track not found : error 404 !!! </p>
                   </Paper>
                 }
               </div>
             </div>
           </Paper>
 
-  	   
+       
   );
   }
 }
 const mapStateToProps = state => ({
   appName: state.common.appName,
-  artist: state.common.artist,
+  track: state.common.track,
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateListArtist: (name) => dispatch(searchArtist(name)),
+  updateListTrack: (name) => dispatch(searchTrack(name)),
   reset: () => 
     dispatch({
               type : 'RESET',
@@ -125,4 +126,4 @@ const mapDispatchToProps = dispatch => ({
               }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MusiqueView);
+export default connect(mapStateToProps, mapDispatchToProps)(TrackView);

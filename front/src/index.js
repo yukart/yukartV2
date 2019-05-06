@@ -9,6 +9,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import App from './components/App';
 import FilmView from './components/Home/Film/FilmView.js';
 import MusiqueView from './components/Home/Musique/MusiqueView.js';
+import TrackView from './components/Home/Musique/TrackView.js';
 
 ReactDOM.render((
   <Provider store={store}>
@@ -17,6 +18,7 @@ ReactDOM.render((
         <Route path="/api" component={App} />
         <Route path="/api/film" component={FilmView} />
         <Route path="/api/musique" component={MusiqueView} />
+        <Route path="/api/track" component={TrackView} />
 
       </Switch>
     </ConnectedRouter>

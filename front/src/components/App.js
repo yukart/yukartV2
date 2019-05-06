@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import FilmView from './Home/Film/FilmView.js';
 import MusiqueView from './Home/Musique/MusiqueView.js';
+import Login from './Connexion/Login.js';
+import Register from './Connexion/Register.js';
+import TrackView from './Home/Musique/TrackView.js';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -11,6 +14,17 @@ import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Banner from './Home/Banner';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+
+import Icon_connexion from 'material-ui/svg-icons/action/account-circle';
+
+const style = {
+	iconConnexion: {
+		width: '50px',
+		height:'50px'
+	},
+};
 
 class App extends React.Component {
 	constructor(props) {
@@ -36,11 +50,26 @@ class App extends React.Component {
 	  this.handleChangeDrawer();
   }
   handleChangeHome = () => {
+		if(this.state.show === "home") {
+			window.location.reload();
+		}
 	  this.setState({show: "home"});
   }
   handleChangeMusique = () => {
 	  this.setState({show: "musique"});
 	  this.handleChangeDrawer();
+	}
+	
+	handleConnexionClick = () => {
+		this.setState({show: "connexion"});
+	}
+	handleInscriptionClick = () => {
+		this.setState({show: "inscription"});
+	}
+  
+  handleChangeTrack = () => {
+    this.setState({show: "track"});
+    this.handleChangeDrawer();
   }
   getContent = () => {
 	  if(this.state.show === "home") {
@@ -64,8 +93,25 @@ class App extends React.Component {
 		  return (
 				  <MusiqueView />
 		  )
-	  }
-  }
+		} 
+		else if(this.state.show === "connexion") {
+			return (
+				<Login />
+			)
+		}
+		else if(this.state.show === "inscription") {
+			return (
+				<Register />
+			)
+		}
+		else if (this.state.show === "track"){
+		  return (
+		    <TrackView />
+		    )
+		}
+    };
+  
+  
   render() {
       return (
         <div>
@@ -75,11 +121,19 @@ class App extends React.Component {
           <AppBar
           	iconClassNameRight="muidocs-icon-navigation-expand-more"
           	title="YukArt"
-          	onLeftIconButtonClick={this.handleChangeDrawer}
-          >      
-          
-          <FlatButton label="Home" onClick={this.handleChangeHome} />
+						onLeftIconButtonClick={this.handleChangeDrawer}
+						onTitleClick={this.handleChangeHome}
+          >  
 
+					<IconMenu
+						iconButtonElement={<IconButton iconStyle={style.iconConnexion}><Icon_connexion /></IconButton>}
+						anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+						targetOrigin={{horizontal: 'left', vertical: 'top'}}
+					>
+						<MenuItem primaryText="Se connecter" onClick={this.handleConnexionClick}/>
+						<MenuItem primaryText="S'inscrire" onClick={this.handleInscriptionClick}/>
+					</IconMenu>
+			
           </AppBar>
           <Drawer
           	docked={false}
@@ -93,9 +147,13 @@ class App extends React.Component {
                 primaryText={"Film"}
                 onClick={this.handleChangeFilm}
               />
-              <MenuItem
+            <MenuItem
                 primaryText={"Musique"}
           		onClick={this.handleChangeMusique}
+              />
+            <MenuItem
+                primaryText={"Track"}
+              onClick={this.handleChangeTrack}
               />
   		
           </Drawer>
