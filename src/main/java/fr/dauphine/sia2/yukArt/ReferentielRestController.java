@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.dauphine.sia2.yukArt.objects.Film;
-import fr.dauphine.sia2.yukArt.services.FilmService;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.Track;
 
+import fr.dauphine.sia2.yukArt.objects.Film;
+import fr.dauphine.sia2.yukArt.services.DatabaseService;
+import fr.dauphine.sia2.yukArt.services.FilmService;
 import fr.dauphine.sia2.yukArt.services.MusicService;
 import fr.dauphine.sia2.yukArt.services.TrackService;
 
@@ -36,8 +37,8 @@ public class ReferentielRestController {
 	}
 
 	@RequestMapping("/api/artist/{name}")
-	public List<Artist> getArtist(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable String name) throws ParseException {
+	public List<Artist> getArtist(HttpServletRequest request, HttpServletResponse response, @PathVariable String name)
+			throws ParseException {
 
 		MusicService musicService = new MusicService();
 		List<Artist> artists = musicService.searchArtist(name);
@@ -48,9 +49,10 @@ public class ReferentielRestController {
 
 		return artists;
 	}
+
 	@RequestMapping("/api/track/{name}")
-	public List<Track> getTrack(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable String name) throws ParseException {
+	public List<Track> getTrack(HttpServletRequest request, HttpServletResponse response, @PathVariable String name)
+			throws ParseException {
 
 		TrackService trackService = new TrackService();
 		List<Track> tracks = trackService.searchTrack(name);
@@ -60,5 +62,14 @@ public class ReferentielRestController {
 		}
 
 		return tracks;
+	}
+
+	@RequestMapping("/api/connexion/{login}/{password}")
+	public Boolean connexion(HttpServletRequest request, HttpServletResponse response, @PathVariable String login,
+			@PathVariable String password) {
+
+		DatabaseService databaseService = new DatabaseService();
+
+		return databaseService.testConnexion(login, password);
 	}
 }

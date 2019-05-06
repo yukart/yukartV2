@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
@@ -20,8 +21,14 @@ constructor(props){
   }
  }
 
-handleClick = (username,password) => {
-  this.props.connexion(username,password);
+handleClick = () => {
+  this.props.connexion(this.state.username,this.state.password).then(function() {
+    if(this.props.connexionTest) {
+      alert("Vous êtes connectés !");
+    } else {
+      alert("Wrong login / password !");
+    }
+  });
 }
 
 render() {
@@ -54,10 +61,11 @@ render() {
 const mapStateToProps = state => {
   return {
     appName: state.common.appName,
+    connexionTest: state.common.connexion,
   }};
 
 const mapDispatchToProps = dispatch => ({
   connexion: (login,pass) => dispatch(connexion(login,pass)),
 });
 
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

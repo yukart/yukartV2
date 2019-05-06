@@ -8,7 +8,7 @@ public class DataBase {
 	private static DataBase INSTANCE = null;
 	private DBConnect dataBConnect;
 
-	private DataBase() {
+	public DataBase() {
 		this.dataBConnect = new DBConnect();
 	}
 

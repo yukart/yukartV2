@@ -4,6 +4,7 @@ const defaultState = {
   film: [],
   artist: [],
   track: [],
+  connexion: false,
 };
 
 export default (state = defaultState, action) => {
@@ -30,6 +31,16 @@ export default (state = defaultState, action) => {
       return {
         ...state
       }; 
+    case "CONNEXION_SUCCESS":
+      state.connexion = action.items;
+      return {
+        ...state
+      }; 
+    case "CONNEXION_ERROR":
+      state.connexion = false;
+      return {
+        ...state
+      };
     default:
       return state;
   }
