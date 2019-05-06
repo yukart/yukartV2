@@ -16,13 +16,13 @@ class Login extends React.Component {
 constructor(props){
   super(props);
   this.state={
-  username:'',
-  password:''
-  }
+  username:"",
+  password:"",
+  };
  }
 
 handleClick = () => {
-  this.props.connexion(this.state.username,this.state.password).then(function() {
+  this.props.connexion(this.state.username,this.state.password).then(response => {
     if(this.props.connexionTest) {
       alert("Vous êtes connectés !");
     } else {
@@ -58,11 +58,10 @@ render() {
   }
 }
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     appName: state.common.appName,
-    connexionTest: state.common.connexion,
-  }};
+    connexionTest: state.common.connexion
+  });
 
 const mapDispatchToProps = dispatch => ({
   connexion: (login,pass) => dispatch(connexion(login,pass)),
