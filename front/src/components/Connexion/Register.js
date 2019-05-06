@@ -1,20 +1,41 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import axios from 'axios';
+
+import inscription from '../../actions/inscription.js';
+
+const style = {
+  margin: 15,
+};
 
 class Register extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      first_name:'',
-      last_name:'',
-      email:'',
-      password:''
-    }
+      username: "",
+      password:"",
+      email:"",
+    };
   }
+
+  handleClick = () => {
+    this.props.inscription(this.state.username,this.state.password, this.state.email).then(response => {
+      switch (this.props.inscriptionTest) {
+        case "USER_ALREADY_EXISTS":
+          alert("Username already exists or wrong password");
+          break;
+        case "NEW_USER_CREATED":
+          alert("Vous vous êtes bien inscrits");
+          break;
+        default:
+
+      }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -22,15 +43,9 @@ class Register extends React.Component {
           <div>
           <h1>Register</h1>
            <TextField
-             hintText="Enter your First Name"
-             floatingLabelText="First Name"
-             onChange = {(event,newValue) => this.setState({first_name:newValue})}
-             />
-           <br/>
-           <TextField
-             hintText="Enter your Last Name"
-             floatingLabelText="Last Name"
-             onChange = {(event,newValue) => this.setState({last_name:newValue})}
+             hintText="Enter your username"
+             floatingLabelText="Username"
+             onChange = {(event,newValue) => this.setState({username:newValue})}
              />
            <br/>
            <TextField
@@ -47,14 +62,21 @@ class Register extends React.Component {
              onChange = {(event,newValue) => this.setState({password:newValue})}
              />
            <br/>
-           <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+           <RaisedButton label="Submit" primary={true} style={style} onClick={() => this.handleClick()}/>
           </div>
          </MuiThemeProvider>
       </div>
     );
   }
 }
-const style = {
-  margin: 15,
-};
-export default Register;
+
+const mapStateToProps = state => ({
+  appName: state.common.appName,
+  inscriptionTest: state.common.inscription
+});
+
+const mapDispatchToProps = dispatch => ({
+  inscription: (login,pass, mail) => dispatch(inscription(login,pass,mail)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

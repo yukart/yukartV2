@@ -5,6 +5,7 @@ const defaultState = {
   artist: [],
   track: [],
   connexion: false,
+  inscription: "",
 };
 
 export default (state = defaultState, action) => {
@@ -38,6 +39,11 @@ export default (state = defaultState, action) => {
       }; 
     case "CONNEXION_ERROR":
       state.connexion = false;
+      return {
+        ...state
+      };
+    case "INSCRIPTION_SUCCESS":
+      state.inscription = action.items;
       return {
         ...state
       };

@@ -72,4 +72,13 @@ public class ReferentielRestController {
 
 		return databaseService.testConnexion(login, password);
 	}
+
+	@RequestMapping("/api/inscription/{login}/{password}/{email}")
+	public String inscription(HttpServletRequest request, HttpServletResponse response, @PathVariable String login,
+			@PathVariable String password, @PathVariable String email) {
+
+		DatabaseService databaseService = new DatabaseService();
+
+		return databaseService.testInscription(login, password, email);
+	}
 }
