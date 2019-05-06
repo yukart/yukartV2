@@ -1,4 +1,4 @@
 com.mysql.jdbc.Driver
-jdbc:mysql://localhost:3306/YukArt
+jdbc:mysql://localhost:3307/YukArt
 root
 root
