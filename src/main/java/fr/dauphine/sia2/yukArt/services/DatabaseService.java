@@ -1,6 +1,7 @@
 package fr.dauphine.sia2.yukArt.services;
 
 import fr.dauphine.sia2.yukArt.data.DataBase;
+import fr.dauphine.sia2.yukArt.engine.MailManagement;
 
 public class DatabaseService {
 	DataBase db = new DataBase();
@@ -13,7 +14,10 @@ public class DatabaseService {
 		if (db.existLogin(login)) {
 			return "USER_ALREADY_EXISTS";
 		} else {
+			MailManagement mailM = new MailManagement();
+			mailM.sendMail(email, login);
 			db.createNewUser(login, password, email);
+
 			return "NEW_USER_CREATED";
 		}
 
