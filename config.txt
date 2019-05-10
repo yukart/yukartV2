@@ -1,4 +1,0 @@
-com.mysql.jdbc.Driver
-jdbc:mysql://localhost:3307/YukArt
-root
-root
