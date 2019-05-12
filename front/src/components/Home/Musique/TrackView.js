@@ -85,13 +85,13 @@ class TrackView extends React.Component {
                 {this.props.track !== null && this.props.track.length !== 0 &&
                   this.props.track.map((track) => 
                     <Paper style={style.paper} zDepth={2}>
-                      {track.images[0] !== undefined &&
-                        <img alt="poster" width="25%" src={track.images[0].url}/>
+                     {track.album.images[0] !== undefined &&
+                        <img alt="poster" width="25%" src={track.album.images[0].url}/>
                       }
                       <ul>
                         <li style={style.puce}>Nom : {track.name} </li>
                         <li style={style.puce}>Durée : {track.duration} </li>
-                        <li style={style.puce}>Artiste(s) : {track.artists.map((artist) => artist+"; ")} </li>
+                        <li style={style.puce}>Artiste(s) : {track.artists.map((artist) => artist.name+"; ")} </li>
                         <li style={style.puce}>Popularité: {track.popularity}%</li>
                         <li style={style.puce}> <a href={track.externalUrls.externalUrls.spotify} target="_blank" alt="lien spotify"> Ecouter cette chanson</a>  </li>
                       </ul>

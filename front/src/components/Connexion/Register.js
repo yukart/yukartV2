@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -28,7 +28,8 @@ class Register extends React.Component {
           alert("Username already exists or wrong password");
           break;
         case "NEW_USER_CREATED":
-          alert("Vous vous êtes bien inscrits");
+          alert("Inscription is done. You should have received an email confirming your inscription !");
+          this.props.handleChangeHome();
           break;
         default:
 

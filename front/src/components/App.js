@@ -13,17 +13,30 @@ import Paper from 'material-ui/Paper';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Banner from './Home/Banner';
-import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import IconMenu from 'material-ui/IconMenu';
 
 import Icon_connexion from 'material-ui/svg-icons/action/account-circle';
+
 
 const style = {
 	iconConnexion: {
 		width: '50px',
 		height:'50px'
 	},
+	welcome: {
+		fontFamily: 'Magneto',
+		color:'white',
+		fontSize: '30px',
+		marginRight: '10px'
+	},
+	connexionButton: {
+		color: 'white',
+		backgroundColor: 'red'
+	},
+	appBar: {
+		backgroundColor:'black'
+	}
 };
 
 class App extends React.Component {
@@ -43,7 +56,9 @@ class App extends React.Component {
 	  
   }
   handleChangeDrawer = () => {
-	  this.setState({open: !this.state.open});
+		if(this.props.connexion) {
+			 this.setState({open: !this.state.open});
+		}
   }
   handleChangeFilm = () => {
 	  this.setState({show: "film"});
@@ -63,6 +78,12 @@ class App extends React.Component {
 	handleConnexionClick = () => {
 		this.setState({show: "connexion"});
 	}
+
+	handleSignOutClick = () => {
+		this.props.deconnexion();
+		alert("You've been logged out !");
+		this.setState({show: "home"});
+	}
 	handleInscriptionClick = () => {
 		this.setState({show: "inscription"});
 	}
@@ -74,14 +95,7 @@ class App extends React.Component {
   getContent = () => {
 	  if(this.state.show === "home") {
 		  return (
-				  <Paper zDepth={5}>
-		  			<Banner appName={this.props.appName}/>
-		  	        <div className="container page">
-		  	          <div className="row">
-		  	          	<p></p>
-		  	          </div>
-		  	        </div>
-		  	     </Paper>	  
+					<Banner appName={this.props.appName}/>  
 		  )
 	  }
 	  else if(this.state.show === "film"){
@@ -96,12 +110,12 @@ class App extends React.Component {
 		} 
 		else if(this.state.show === "connexion") {
 			return (
-				<Login />
+				<Login handleChangeHome={this.handleChangeHome} />
 			)
 		}
 		else if(this.state.show === "inscription") {
 			return (
-				<Register />
+				<Register handleChangeHome={this.handleChangeHome}/>
 			)
 		}
 		else if (this.state.show === "track"){
@@ -115,66 +129,87 @@ class App extends React.Component {
   render() {
       return (
         <div>
-        <MuiThemeProvider>
+					<MuiThemeProvider>
+						<div className="home-page">
+							<AppBar
+								iconClassNameRight="muidocs-icon-navigation-expand-more"
+								title="YukArt"
+								onLeftIconButtonClick={this.handleChangeDrawer}
+								onTitleClick={this.handleChangeHome}
+								style={style.appBar}
+							>  
+							{this.props.connexion && 
+							<h2 style={style.welcome}>
+								Hello {this.props.username}
+							</h2>
+							}
+							<IconMenu
+								iconButtonElement={<RaisedButton buttonStyle={style.connexionButton} backgroundColor="red" labelColor="white" label="Connexion" primary={true}/>}
+								anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+								targetOrigin={{horizontal: 'left', vertical: 'top'}}
+								menuStyle={style.connexionButton}
+							>
+								{this.props.connexion && 
+									<MenuItem primaryText="Sign out" onClick={this.handleSignOutClick} style={style.connexionButton}/>
+								}
+								{!this.props.connexion && 
+									<div>
+										<MenuItem primaryText="Se connecter" onClick={this.handleConnexionClick} style={style.connexionButton}/>
+										<MenuItem primaryText="S'inscrire" onClick={this.handleInscriptionClick} style={style.connexionButton}/>
+									</div>
+								}
+								
+							</IconMenu>
+					
+							</AppBar>
+							<Drawer
+								docked={false}
+								width={200}
+								open={this.state.open}
+								onRequestChange={(open) => this.setState({open})}>
+							
+								<AppBar title="AppBar" onLeftIconButtonClick={this.handleChangeDrawer}/>
+							
+								<MenuItem
+										primaryText={"Film"}
+										onClick={this.handleChangeFilm}
+									/>
+								<MenuItem
+										primaryText={"Musique"}
+									onClick={this.handleChangeMusique}
+									/>
+								<MenuItem
+										primaryText={"Track"}
+									onClick={this.handleChangeTrack}
+									/>
+					
+							</Drawer>
+										
+							{this.getContent()}
 
-        <div className="home-page">
-          <AppBar
-          	iconClassNameRight="muidocs-icon-navigation-expand-more"
-          	title="YukArt"
-						onLeftIconButtonClick={this.handleChangeDrawer}
-						onTitleClick={this.handleChangeHome}
-          >  
-
-					<IconMenu
-						iconButtonElement={<IconButton iconStyle={style.iconConnexion}><Icon_connexion /></IconButton>}
-						anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-						targetOrigin={{horizontal: 'left', vertical: 'top'}}
-					>
-						<MenuItem primaryText="Se connecter" onClick={this.handleConnexionClick}/>
-						<MenuItem primaryText="S'inscrire" onClick={this.handleInscriptionClick}/>
-					</IconMenu>
-			
-          </AppBar>
-          <Drawer
-          	docked={false}
-          	width={200}
-          	open={this.state.open}
-          	onRequestChange={(open) => this.setState({open})}>
-          
-          	<AppBar title="AppBar" onLeftIconButtonClick={this.handleChangeDrawer}/>
-      		
-          	<MenuItem
-                primaryText={"Film"}
-                onClick={this.handleChangeFilm}
-              />
-            <MenuItem
-                primaryText={"Musique"}
-          		onClick={this.handleChangeMusique}
-              />
-            <MenuItem
-                primaryText={"Track"}
-              onClick={this.handleChangeTrack}
-              />
-  		
-          </Drawer>
-                
-  		{this.getContent()}
-
-        </div>
-      </MuiThemeProvider>
+						</div>
+					</MuiThemeProvider>
 		
-        </div>
+				</div>
       );
 	    
   }
 }
 const mapStateToProps = state => {
   return {
-    appName: state.common.appName,
+		appName: state.common.appName,
+		connexion: state.common.connexion,
+		username: state.common.username,
   }};
 
 const mapDispatchToProps = dispatch => ({
- 
+	deconnexion: () => 
+		dispatch(
+		{
+			type : 'DECONNEXION_SUCCESS',
+			items : null,
+			error : null
+		}),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

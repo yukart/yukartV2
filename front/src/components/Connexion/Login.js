@@ -24,6 +24,7 @@ handleClick = () => {
   this.props.connexion(this.state.username,this.state.password).then(response => {
     if(this.props.connexionTest) {
       alert("Vous êtes connectés !");
+      this.props.handleChangeHome();
     } else {
       alert("Wrong login / password !");
     }
