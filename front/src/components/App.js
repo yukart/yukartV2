@@ -177,15 +177,15 @@ class App extends React.Component {
 								<AppBar title="AppBar" onLeftIconButtonClick={this.handleChangeDrawer}/>
 							
 								<MenuItem
-										primaryText={"Film"}
+										primaryText={"Movies"}
 										onClick={this.handleChangeFilm}
 									/>
 								<MenuItem
-										primaryText={"Musique"}
+										primaryText={"Artists"}
 									onClick={this.handleChangeMusique}
 									/>
 								<MenuItem
-										primaryText={"Track"}
+										primaryText={"Tracks"}
 									onClick={this.handleChangeTrack}
 									/>
 					
@@ -196,6 +196,7 @@ class App extends React.Component {
 						</div>
 					</MuiThemeProvider>
 		
+
 				</div>
       );
 	    
