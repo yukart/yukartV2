@@ -2,7 +2,7 @@ import React from 'react';
 
 const Banner = ({appName}) => {
   return (
-    <div className="banner" style={{backgroundColor:'black'}}>
+    <div className="banner" style={{backgroundColor:'#595959'}}>
         <h1 className="logo-font">
           {appName.toLowerCase()}
         </h1>

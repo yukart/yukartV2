@@ -16,7 +16,7 @@ import Banner from './Home/Banner';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconMenu from 'material-ui/IconMenu';
 
-import Icon_connexion from 'material-ui/svg-icons/action/account-circle';
+import userIcon from '../user.png';
 
 
 const style = {
@@ -27,15 +27,21 @@ const style = {
 	welcome: {
 		fontFamily: 'Magneto',
 		color:'white',
-		fontSize: '30px',
-		marginRight: '10px'
+		fontSize: '15px',
+		marginRight: '10px',
+		marginTop: '15px'
 	},
 	connexionButton: {
-		color: 'white',
-		backgroundColor: 'red'
+		backgroundColor: '#f16e00'
 	},
 	appBar: {
-		backgroundColor:'black'
+		color: '#f16e00',
+		backgroundColor: 'black'
+	},
+	userIcon: {
+		height: '50px',
+		width: '50px',
+		marginTop: '5px'
 	}
 };
 
@@ -137,14 +143,15 @@ class App extends React.Component {
 								onLeftIconButtonClick={this.handleChangeDrawer}
 								onTitleClick={this.handleChangeHome}
 								style={style.appBar}
+								titleStyle={{color: 'red'}}
 							>  
 							{this.props.connexion && 
 							<h2 style={style.welcome}>
-								Hello {this.props.username}
+								HELLO {this.props.username.toUpperCase()}
 							</h2>
 							}
 							<IconMenu
-								iconButtonElement={<RaisedButton buttonStyle={style.connexionButton} backgroundColor="red" labelColor="white" label="Connexion" primary={true}/>}
+								iconButtonElement={!this.props.connexion && <RaisedButton buttonStyle={style.connexionButton} label="Connexion" primary={true}/> || this.props.connexion && <img style={style.userIcon} src={userIcon} alt="userIcon" />}
 								anchorOrigin={{horizontal: 'left', vertical: 'top'}}
 								targetOrigin={{horizontal: 'left', vertical: 'top'}}
 								menuStyle={style.connexionButton}
