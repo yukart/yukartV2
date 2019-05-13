@@ -31,11 +31,11 @@ const style = {
 		marginRight: '10px'
 	},
 	connexionButton: {
-		color: 'white',
-		backgroundColor: 'red'
+		backgroundColor: '#f16e00'
 	},
 	appBar: {
-		backgroundColor:'black'
+		color: '#f16e00',
+		backgroundColor: 'black'
 	}
 };
 
@@ -144,7 +144,7 @@ class App extends React.Component {
 							</h2>
 							}
 							<IconMenu
-								iconButtonElement={<RaisedButton buttonStyle={style.connexionButton} backgroundColor="red" labelColor="white" label="Connexion" primary={true}/>}
+								iconButtonElement={<RaisedButton buttonStyle={style.connexionButton} label="Connexion" primary={true}/>}
 								anchorOrigin={{horizontal: 'left', vertical: 'top'}}
 								targetOrigin={{horizontal: 'left', vertical: 'top'}}
 								menuStyle={style.connexionButton}
