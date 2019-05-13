@@ -36,12 +36,14 @@ render() {
            <TextField
              hintText="Enter your Username"
              floatingLabelText="Username"
+             floatingLabelFocusStyle={{color: '#f16e00'}}
              onChange = {(event,newValue) => this.setState({username:newValue})}
              />
            <br/>
              <TextField
                type="password"
                hintText="Enter your Password"
+               floatingLabelFocusStyle={{color: '#f16e00'}}
                floatingLabelText="Password"
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
