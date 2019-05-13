@@ -35,7 +35,6 @@ const style = {
 		backgroundColor: '#f16e00'
 	},
 	appBar: {
-		color: '#f16e00',
 		backgroundColor: 'black'
 	},
 	userIcon: {
@@ -143,7 +142,7 @@ class App extends React.Component {
 								onLeftIconButtonClick={this.handleChangeDrawer}
 								onTitleClick={this.handleChangeHome}
 								style={style.appBar}
-								titleStyle={{color: 'red'}}
+								titleStyle={{color: '#f16e00'}}
 							>  
 							{this.props.connexion && 
 							<h2 style={style.welcome}>

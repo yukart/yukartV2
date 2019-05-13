@@ -7,10 +7,6 @@ import TextField from 'material-ui/TextField';
 
 import connexion from '../../actions/connexion.js'
 
-const style = {
-  margin: 15,
- };
-
 class Login extends React.Component {
 constructor(props){
   super(props);
@@ -35,8 +31,8 @@ render() {
     return (
       <div>
         <MuiThemeProvider>
-          <div>
-            <h1> Login </h1>
+          <div style={{position: 'absolute', top: '50%',left: '50%', transform: 'translate(-50%, -50%)', boxSizing: 'border-box', padding: '0', margin: '0'}}>
+            <h1 style={{textAlign: 'center'}}> Login </h1>
            <TextField
              hintText="Enter your Username"
              floatingLabelText="Username"
@@ -50,7 +46,7 @@ render() {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
              <br/>
-             <RaisedButton label="Submit" primary={true} style={style} onClick={() => this.handleClick()}/>
+             <RaisedButton label="Submit" backgroundColor={'#f16e00'} style={{display: 'flex', justifyContent: 'center'}} onClick={() => this.handleClick()}/>
          </div>
          </MuiThemeProvider>
       </div>
