@@ -65,7 +65,7 @@ public class ReferentielRestController {
 	}
 
 	@RequestMapping("/api/connexion/{login}/{password}")
-	public Boolean connexion(HttpServletRequest request, HttpServletResponse response, @PathVariable String login,
+	public String connexion(HttpServletRequest request, HttpServletResponse response, @PathVariable String login,
 			@PathVariable String password) {
 
 		DatabaseService databaseService = new DatabaseService();

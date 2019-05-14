@@ -1,13 +1,25 @@
 package fr.dauphine.sia2.yukArt.services;
 
+import fr.dauphine.sia2.tools.Hashage;
 import fr.dauphine.sia2.yukArt.data.DataBase;
 import fr.dauphine.sia2.yukArt.engine.MailManagement;
 
 public class DatabaseService {
 	DataBase db = new DataBase();
 
-	public boolean testConnexion(String login, String password) {
-		return db.existUser(login, password);
+	public String testConnexion(String login, String password) {
+		String passwordHash = Hashage.sha256(password);
+		if (db.existUser(login, passwordHash)) {
+			if (db.getUser(login).isAccountConfirmed()) {
+
+				return "USER_CONNECTED";
+			} else {
+				System.out.println("User not confirmed");
+				return "USER_ACCOUNT_NOT_CONFIRMED";
+			}
+		} else {
+			return "USER_NOT_EXISTS";
+		}
 	}
 
 	public String testInscription(String login, String password, String email) {
@@ -16,7 +28,8 @@ public class DatabaseService {
 		} else {
 			MailManagement mailM = new MailManagement();
 			mailM.sendMail(email, login);
-			db.createNewUser(login, password, email);
+			String passwordHash = Hashage.sha256(password);
+			db.createNewUser(login, passwordHash, email);
 
 			return "NEW_USER_CREATED";
 		}

@@ -10,7 +10,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import fr.dauphine.sia2.yukArt.data.DataBase;
+
 public class MailManagement {
+
+	DataBase db = new DataBase();
 
 	public MailManagement() {
 
@@ -20,6 +24,8 @@ public class MailManagement {
 		final String username = "yukart.miage@gmail.com";
 		final String password = "yukartdauph";
 
+		int mailConfirmation = db.getUser(user).getMailConfirmation();
+
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
@@ -27,7 +33,8 @@ public class MailManagement {
 		props.put("mail.smtp.port", "587");
 
 		String msg = "Bienvenue sur la plateforme YukArt " + user + " ! <br>"
-				+ "Pour rappel, l'accès à la plateforme se fait via le lien suivant : <b>http://localhost:4100/api</b>"
+				+ "Activez votre compte en insérant ce code de confirmation : <b>" + mailConfirmation
+				+ "</b> <br> Pour rappel, l'accès à la plateforme se fait via le lien suivant : <b>http://localhost:4100/api</b>"
 				+ "<br> A bientôt.";
 
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
