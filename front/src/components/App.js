@@ -86,7 +86,6 @@ class App extends React.Component {
 
 	handleSignOutClick = () => {
 		this.props.deconnexion();
-		alert("You've been logged out !");
 		this.setState({show: "home"});
 	}
 	handleInscriptionClick = () => {
