@@ -26,13 +26,23 @@ public class DatabaseService {
 		if (db.existLogin(login)) {
 			return "USER_ALREADY_EXISTS";
 		} else {
-			MailManagement mailM = new MailManagement();
-			mailM.sendMail(email, login);
 			String passwordHash = Hashage.sha256(password);
 			db.createNewUser(login, passwordHash, email);
-
+			
+			MailManagement mailM = new MailManagement();
+			mailM.sendMail(email, login);
+			
 			return "NEW_USER_CREATED";
 		}
 
+	}
+
+	public boolean testCode(String username,String code) {
+		int userCode = db.getUser(username).getMailConfirmation();
+		if (Integer.parseInt(code) == userCode) {
+			db.getUser(username).setAccountConfirmed();
+			return true;
+		}
+		return false;
 	}
 }

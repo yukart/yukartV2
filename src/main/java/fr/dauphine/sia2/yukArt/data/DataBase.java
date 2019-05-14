@@ -41,5 +41,9 @@ public class DataBase {
 	public void insertComment(Comment c) {
 		dataBConnect.insertComment(c);
 	}
+	
+	public void updateUserConfirmed(String login) {
+		dataBConnect.updateUserConfirmed(login);
+	}
 
 }

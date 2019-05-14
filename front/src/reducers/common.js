@@ -4,7 +4,8 @@ const defaultState = {
   film: [],
   artist: [],
   track: [],
-  connexion: false,
+  connexion: "",
+  verificationTest: false,
   username: "",
   inscription: "",
 };
@@ -34,11 +35,17 @@ export default (state = defaultState, action) => {
         ...state
       }; 
     case "CONNEXION_SUCCESS":
-      state.connexion = true;
-      state.username = action.items;
+      state.connexion = action.items[1];
+      state.username = action.items[0];
       return {
         ...state
       }; 
+    case "VERIFICATION_CODE_SUCCESS":
+      state.verificationTest = action.items;
+      return {
+        ...state
+      }; 
+      
     case "DECONNEXION_SUCCESS":
       state.connexion = false;
       state.username = "";
