@@ -93,6 +93,10 @@ public class DBConnect {
 		return tmp;
 
 	}
+	
+	public void updateUserConfirmed(String username) {
+		this.setUpdate("update users set isAccountConfirmed = 1 where login = '" + username + "'");
+	}
 
 	public void createUser(String formPseudo, String formPwd, String formMail) {
 		Random r = new Random();
@@ -157,8 +161,8 @@ public class DBConnect {
 		DBConnect db = new DBConnect();
 		// db.createUser("vik3", "vik3", "vik2@vik2.vik2");
 		System.out.println(db.existLogin("vik3"));
-		System.out.println(db.getUser("vik3").getMailConfirmation());
-		System.out.println(db.getUser("vik3").isAccountConfirmed());
+		System.out.println(db.getUser("fontlo15").getMailConfirmation());
+		// System.out.println(db.getUser("vik3").isAccountConfirmed());
 	}
 
 }

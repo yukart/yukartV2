@@ -7,20 +7,12 @@ const connexion = (login, pass) => {
 		return axios.get('/api/connexion/'+login+"/"+pass)
 		      .then(function (message) {
 				  if(message.data) {
-					dispatch({
-		    			type : 'CONNEXION_SUCCESS',
-		    			items : login,
-		    			error : null,
-		    		  })
-				  }
-				  else {
-					dispatch({
-		    			type : 'CONNEXION_ERROR',
-		    			items : [],
-		    			error : null,
-		    		  })
-				  }
-		    	 
+						dispatch({
+								type : 'CONNEXION_SUCCESS',
+								items : [login,message.data],
+								error : null,
+								})
+						}
 		      })
 			.catch(function(error) {
 				console.error(error);

@@ -4,6 +4,7 @@ import FilmView from './Home/Film/FilmView.js';
 import MusiqueView from './Home/Musique/MusiqueView.js';
 import Login from './Connexion/Login.js';
 import Register from './Connexion/Register.js';
+import InscriptionConfirmation from './Connexion/InscriptionConfirmation.js';
 import TrackView from './Home/Musique/TrackView.js';
 
 import AppBar from 'material-ui/AppBar';
@@ -49,7 +50,9 @@ class App extends React.Component {
 	    super(props);
 	    this.state = {
     		open: false,
-    		show: "home"
+				show: "home",
+				usernameSession: "",
+				passwordSession: "",
 	    };
 	  }
 	
@@ -61,7 +64,7 @@ class App extends React.Component {
 	  
   }
   handleChangeDrawer = () => {
-		if(this.props.connexion) {
+		if(this.props.connexionTest === "USER_CONNECTED") {
 			 this.setState({open: !this.state.open});
 		}
   }
@@ -80,13 +83,20 @@ class App extends React.Component {
 	  this.handleChangeDrawer();
 	}
 	
+	handleChangeInscriptionConfirmation = (username,pass) => {
+		this.setState({
+			show: "inscription_confirmation",
+			usernameSession: username,
+			passwordSession:pass
+		});
+	}
+
 	handleConnexionClick = () => {
 		this.setState({show: "connexion"});
 	}
 
 	handleSignOutClick = () => {
 		this.props.deconnexion();
-		alert("You've been logged out !");
 		this.setState({show: "home"});
 	}
 	handleInscriptionClick = () => {
@@ -115,12 +125,17 @@ class App extends React.Component {
 		} 
 		else if(this.state.show === "connexion") {
 			return (
-				<Login handleChangeHome={this.handleChangeHome} />
+				<Login handleChangeHome={this.handleChangeHome} handleChangeInscriptionConfirmation={this.handleChangeInscriptionConfirmation} />
 			)
 		}
 		else if(this.state.show === "inscription") {
 			return (
 				<Register handleChangeHome={this.handleChangeHome}/>
+			)
+		}
+		else if(this.state.show === "inscription_confirmation") {
+			return (
+				<InscriptionConfirmation handleChangeHome={this.handleChangeHome} username={this.state.usernameSession} password={this.state.passwordSession}/>
 			)
 		}
 		else if (this.state.show === "track"){
@@ -144,21 +159,21 @@ class App extends React.Component {
 								style={style.appBar}
 								titleStyle={{color: '#f16e00'}}
 							>  
-							{this.props.connexion && 
+							{this.props.connexionTest === "USER_CONNECTED" && 
 							<h2 style={style.welcome}>
 								HELLO {this.props.username.toUpperCase()}
 							</h2>
 							}
 							<IconMenu
-								iconButtonElement={!this.props.connexion && <RaisedButton buttonStyle={style.connexionButton} label="Connexion" primary={true}/> || this.props.connexion && <img style={style.userIcon} src={userIcon} alt="userIcon" />}
+								iconButtonElement={!(this.props.connexionTest === "USER_CONNECTED") && <RaisedButton buttonStyle={style.connexionButton} label="Connexion" primary={true}/> || (this.props.connexionTest === "USER_CONNECTED") && <img style={style.userIcon} src={userIcon} alt="userIcon" />}
 								anchorOrigin={{horizontal: 'left', vertical: 'top'}}
 								targetOrigin={{horizontal: 'left', vertical: 'top'}}
 								menuStyle={style.connexionButton}
 							>
-								{this.props.connexion && 
+								{this.props.connexionTest === "USER_CONNECTED" && 
 									<MenuItem primaryText="Sign out" onClick={this.handleSignOutClick} style={style.connexionButton}/>
 								}
-								{!this.props.connexion && 
+								{!(this.props.connexionTest === "USER_CONNECTED") && 
 									<div>
 										<MenuItem primaryText="Se connecter" onClick={this.handleConnexionClick} style={style.connexionButton}/>
 										<MenuItem primaryText="S'inscrire" onClick={this.handleInscriptionClick} style={style.connexionButton}/>
@@ -205,7 +220,7 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
 		appName: state.common.appName,
-		connexion: state.common.connexion,
+		connexionTest: state.common.connexion,
 		username: state.common.username,
   }};
 

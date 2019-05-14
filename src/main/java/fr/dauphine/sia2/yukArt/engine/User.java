@@ -1,5 +1,7 @@
 package fr.dauphine.sia2.yukArt.engine;
 
+import fr.dauphine.sia2.yukArt.data.DataBase;
+
 public class User {
 	private int id;
 	private String email;
@@ -8,6 +10,7 @@ public class User {
 	private boolean isAdmin;
 	private int mailConfirmation;
 	private boolean isAccountConfirmed;
+	private DataBase db = new DataBase();
 
 	public User(int ID, String log, String pass, String mail, boolean admin, int mailConfirmation,
 			boolean accountConfirmed) {
@@ -50,6 +53,7 @@ public class User {
 	}
 
 	public void setAccountConfirmed() {
+		db.updateUserConfirmed(this.login);
 		this.isAccountConfirmed = true;
 	}
 

@@ -20,15 +20,13 @@ handleClick = () => {
   this.props.connexion(this.state.username,this.state.password).then(response => {
     switch (this.props.connexionTest) {
       case "USER_CONNECTED":
-          alert("Well connected");
           this.props.handleChangeHome();
           break;
       case "USER_NOT_EXISTS":
           alert("User unknown");
           break;
       case "USER_ACCOUNT_NOT_CONFIRMED":
-          alert("Confirm your account with the code");
-          this.props.handleChangeHome();
+          this.props.handleChangeInscriptionConfirmation(this.state.username,this.state.password);
           break;
       default:
     }
