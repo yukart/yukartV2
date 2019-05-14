@@ -6,7 +6,7 @@ const Banner = ({appName}) => {
         <h1 className="logo-font">
           {appName.toLowerCase()}
         </h1>
-        <p>A place to find all your movies and musics</p>
+        <p style={{color: '#f16e00'}}>Check out for movie shows, musics and cinema and TV shows, Yukart shows, the latest trailers, albums and more ...</p>
     </div>
   );
 };

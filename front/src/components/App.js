@@ -18,6 +18,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconMenu from 'material-ui/IconMenu';
 
 import userIcon from '../user.png';
+import moviesIcon from '../moves_icon.png';
+import { MenuList } from '@material-ui/core';
 
 import './App.css';
 
@@ -27,8 +29,7 @@ const style = {
 		height:'50px'
 	},
 	welcome: {
-		fontFamily: 'Magneto',
-		color:'white',
+		color:'#f16e00',
 		fontSize: '15px',
 		marginRight: '10px',
 		marginTop: '15px'
@@ -190,20 +191,24 @@ class App extends React.Component {
 								open={this.state.open}
 								onRequestChange={(open) => this.setState({open})}>
 							
-								<AppBar title="AppBar" onLeftIconButtonClick={this.handleChangeDrawer}/>
-							
+								<AppBar title="Menu" style = {{backgroundColor: '#f16e00'}} onLeftIconButtonClick={this.handleChangeDrawer}/>
+								<MenuList style={{backgroundColor: '#595959'}}>
 								<MenuItem
-										primaryText={"Movies"}
+										primaryText={"MOVIES"}
+										style={{color: 'white'}}
 										onClick={this.handleChangeFilm}
 									/>
 								<MenuItem
-										primaryText={"Artists"}
+										primaryText={"ARTISTS"}
+										style={{color: 'white'}}
 									onClick={this.handleChangeMusique}
 									/>
 								<MenuItem
-										primaryText={"Tracks"}
+										primaryText={"TRACKS"}
+										style={{color: 'white'}}
 									onClick={this.handleChangeTrack}
 									/>
+								</MenuList>
 					
 							</Drawer>
 										
