@@ -19,6 +19,7 @@ import IconMenu from 'material-ui/IconMenu';
 
 import userIcon from '../user.png';
 
+import './App.css';
 
 const style = {
 	iconConnexion: {

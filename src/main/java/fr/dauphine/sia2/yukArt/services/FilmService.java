@@ -26,7 +26,7 @@ public class FilmService {
 
 		Film film = new Film(jsonFilm.get("Title").toString(), jsonFilm.get("Year").toString(),
 				jsonFilm.get("Released").toString(), jsonFilm.get("Runtime").toString(),
-				jsonFilm.get("Genre").toString(), jsonFilm.get("Plot").toString(), jsonFilm.get("Poster").toString());
+				jsonFilm.get("Genre").toString(), jsonFilm.get("Plot").toString(), jsonFilm.get("Poster").toString(),jsonFilm.get("imdbRating").toString());
 		return film;
 	}
 
@@ -52,7 +52,7 @@ public class FilmService {
 			films.add(new Film(jsonDetailledFilm.get("Title").toString(), jsonDetailledFilm.get("Year").toString(),
 					jsonDetailledFilm.get("Released").toString(), jsonDetailledFilm.get("Runtime").toString(),
 					jsonDetailledFilm.get("Genre").toString(), jsonDetailledFilm.get("Plot").toString(),
-					jsonDetailledFilm.get("Poster").toString()));
+					jsonDetailledFilm.get("Poster").toString(),jsonDetailledFilm.get("imdbRating").toString()));
 		}
 
 		return films;

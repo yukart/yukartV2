@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import searchFilmByTitle from '../../../actions/searchFilmByTitle.js';
 import Banner from '../Banner';
+import ListMovies from './ListMovies';
 
 const style = {
 		paper: {
@@ -52,7 +53,10 @@ class FilmView extends React.Component {
 	   });
   };
 
-  
+  addMovieInFavoriteList = () => {
+		//TODO
+	}
+
   render() {
     return (
     			<Paper zDepth={5}>
@@ -68,9 +72,9 @@ class FilmView extends React.Component {
 	    			    </div>
 	    				<div className="row">
 								{this.props.film !== null && this.props.film.length !== 0 &&
-									<h1> Your research : </h1>
+									<h1> Search results </h1>
 								}
-
+								{/*
 								{this.props.film !== null && this.props.film.length !== 0 &&
 									this.props.film.map((film) => 
 										<Paper style={style.paper} zDepth={2}>
@@ -91,6 +95,15 @@ class FilmView extends React.Component {
 										<p> Movie not found : error 404 !!! </p>
 									</Paper>
 								}
+							*/}
+							{this.props.film !== null && this.props.film.length !== 0 &&
+								<ListMovies
+									movies={this.props.film}
+									favoriteList={this.props.favoriteList}
+									onAddListPressed={movie => this.addMovieInFavoriteList(movie)}
+								/>
+							}
+
 							</div>
 						</div>
 					</Paper>
@@ -101,7 +114,8 @@ class FilmView extends React.Component {
 }
 const mapStateToProps = state => ({
   appName: state.common.appName,
-  film: state.common.film
+	film: state.common.film,
+	favoriteList: []
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -9,9 +9,10 @@ public class Film {
 	private String genre;
 	private String synopsis;
 	private String poster_url;
+	private String rating;
 
 	public Film(String title, String year, String release_date, String runtime, String genre, String synopsis,
-			String poster_url) {
+			String poster_url,String rating) {
 		this.title = title;
 		this.year = year;
 		this.release_date = release_date;
@@ -19,6 +20,7 @@ public class Film {
 		this.genre = genre;
 		this.synopsis = synopsis;
 		this.poster_url = poster_url;
+		this.rating = rating;
 	}
 
 	public String getTitle() {
@@ -75,6 +77,14 @@ public class Film {
 
 	public void setSynopsis(String synopsis) {
 		this.synopsis = synopsis;
+	}
+
+	public String getRating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
 	}
 
 }
