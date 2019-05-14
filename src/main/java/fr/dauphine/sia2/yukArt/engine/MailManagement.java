@@ -32,7 +32,7 @@ public class MailManagement {
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
 
-		String msg = "Bienvenue sur la plateforme YukArt " + user + " ! <br>"
+		String msg = "Bienvenue sur la plateforme YukArt, " + user + " ! <br>"
 				+ "Activez votre compte en insérant ce code de confirmation : <b>" + mailConfirmation
 				+ "</b> <br> Pour rappel, l'accès à la plateforme se fait via le lien suivant : <b>http://localhost:4100/api</b>"
 				+ "<br> A bientôt.";
