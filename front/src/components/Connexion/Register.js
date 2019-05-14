@@ -41,16 +41,18 @@ class Register extends React.Component {
     return (
       <div>
         <MuiThemeProvider>
-          <div>
-          <h1>Register</h1>
+          <div style={{position: 'absolute', top: '50%',left: '50%', transform: 'translate(-50%, -50%)', boxSizing: 'border-box', padding: '0', margin: '0'}}>
+          <h1 style={{textAlign: 'center'}}>Register</h1>
            <TextField
              hintText="Enter your username"
+             floatingLabelFocusStyle={{color: '#f16e00'}}
              floatingLabelText="Username"
              onChange = {(event,newValue) => this.setState({username:newValue})}
              />
            <br/>
            <TextField
              hintText="Enter your Email"
+             floatingLabelFocusStyle={{color: '#f16e00'}}
              type="email"
              floatingLabelText="Email"
              onChange = {(event,newValue) => this.setState({email:newValue})}
@@ -59,11 +61,12 @@ class Register extends React.Component {
            <TextField
              type = "password"
              hintText="Enter your Password"
+             floatingLabelFocusStyle={{color: '#f16e00'}}
              floatingLabelText="Password"
              onChange = {(event,newValue) => this.setState({password:newValue})}
              />
            <br/>
-           <RaisedButton label="Submit" primary={true} style={style} onClick={() => this.handleClick()}/>
+           <RaisedButton label="Submit" backgroundColor={'#f16e00'} style={{display: 'flex', justifyContent: 'center'}} onClick={() => this.handleClick()}/>
           </div>
          </MuiThemeProvider>
       </div>
