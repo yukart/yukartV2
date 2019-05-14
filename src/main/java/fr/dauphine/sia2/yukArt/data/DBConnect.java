@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import fr.dauphine.sia2.yukArt.engine.Comment;
 import fr.dauphine.sia2.yukArt.engine.Factory;
@@ -94,8 +95,10 @@ public class DBConnect {
 	}
 
 	public void createUser(String formPseudo, String formPwd, String formMail) {
-		this.setUpdate("Insert into users(login,password,email,isAdmin) Values('" + formPseudo + "','" + formPwd + "','"
-				+ formMail + "', false )");
+		Random r = new Random();
+		int mailConfirmation = r.nextInt(10000);
+		this.setUpdate("Insert into users(login,password,email,isAdmin,mailConfirmation) Values('" + formPseudo + "','"
+				+ formPwd + "','" + formMail + "', false, " + mailConfirmation + " )");
 	}
 
 	public User getUser(String formPseudo) {
@@ -108,6 +111,8 @@ public class DBConnect {
 		String login = null, password = null, email = null;
 		int id = 0;
 		boolean isAdmin = false;
+		int mailConfirmation = 0;
+		boolean isAccountConfirmed = false;
 		List<User> lUser = new ArrayList<User>();
 		try {
 			request = connect.createStatement();
@@ -119,7 +124,9 @@ public class DBConnect {
 				password = resultSet.getString("password");
 				email = resultSet.getString("email");
 				isAdmin = resultSet.getBoolean("isAdmin");
-				lUser.add(Factory.getUser(id, login, password, email, isAdmin));
+				mailConfirmation = resultSet.getInt("mailConfirmation");
+				isAccountConfirmed = resultSet.getBoolean("isAccountConfirmed");
+				lUser.add(Factory.getUser(id, login, password, email, isAdmin, mailConfirmation, isAccountConfirmed));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -148,9 +155,10 @@ public class DBConnect {
 
 	public static void main(String[] args) {
 		DBConnect db = new DBConnect();
-		db.createUser("vik2", "vik2", "vik2@vik2.vik2");
-		System.out.println(db.existLogin("vik"));
-		System.out.println(db.existLogin("ok"));
+		// db.createUser("vik3", "vik3", "vik2@vik2.vik2");
+		System.out.println(db.existLogin("vik3"));
+		System.out.println(db.getUser("vik3").getMailConfirmation());
+		System.out.println(db.getUser("vik3").isAccountConfirmed());
 	}
 
 }

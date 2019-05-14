@@ -6,13 +6,19 @@ public class User {
 	private String login;
 	private String password;
 	private boolean isAdmin;
+	private int mailConfirmation;
+	private boolean isAccountConfirmed;
 
-	public User(int ID, String log, String pass, String mail, boolean admin) {
+	public User(int ID, String log, String pass, String mail, boolean admin, int mailConfirmation,
+			boolean accountConfirmed) {
 		this.id = ID;
 		this.login = log;
 		this.password = pass;
 		this.email = mail;
 		this.isAdmin = admin;
+		this.mailConfirmation = mailConfirmation;
+		this.isAccountConfirmed = accountConfirmed;
+
 	}
 
 	public String getLogin() {
@@ -33,6 +39,18 @@ public class User {
 
 	public String getPassword() {
 		return this.password;
+	}
+
+	public int getMailConfirmation() {
+		return this.mailConfirmation;
+	}
+
+	public boolean isAccountConfirmed() {
+		return this.isAccountConfirmed;
+	}
+
+	public void setAccountConfirmed() {
+		this.isAccountConfirmed = true;
 	}
 
 }

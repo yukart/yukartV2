@@ -18,11 +18,19 @@ constructor(props){
 
 handleClick = () => {
   this.props.connexion(this.state.username,this.state.password).then(response => {
-    if(this.props.connexionTest) {
-      alert("Vous êtes connectés !");
-      this.props.handleChangeHome();
-    } else {
-      alert("Wrong login / password !");
+    switch (this.props.connexionTest) {
+      case "USER_CONNECTED":
+          alert("Well connected");
+          this.props.handleChangeHome();
+          break;
+      case "USER_NOT_EXISTS":
+          alert("User unknown");
+          break;
+      case "USER_ACCOUNT_NOT_CONFIRMED":
+          alert("Confirm your account with the code");
+          this.props.handleChangeHome();
+          break;
+      default:
     }
   });
 }
