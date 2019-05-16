@@ -1,7 +1,10 @@
 package fr.dauphine.sia2.yukArt.data;
 
+import java.util.List;
+
 import fr.dauphine.sia2.yukArt.engine.Comment;
 import fr.dauphine.sia2.yukArt.engine.User;
+import fr.dauphine.sia2.yukArt.objects.Film;
 
 public class DataBase {
 
@@ -50,4 +53,12 @@ public class DataBase {
 		return dataBConnect.insertMovieInFavoriteList(username, movie);
 	}
 
+
+	public boolean removeMovieInFavoriteList(String username, String movie) {
+		return dataBConnect.removeMovieInFavoriteList(username, movie);
+	}
+
+	public List<String> getMovieInFavoriteList(String username) {
+		return dataBConnect.getMovieInFavoriteList(username);
+	}
 }

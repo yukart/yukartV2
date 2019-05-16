@@ -98,4 +98,21 @@ public class ReferentielRestController {
 		return databaseService.addMovieInFavoriteList(username, movie);
 	}
 	
+	@RequestMapping("/api/removeMovieInFavoriteList/{username}/{movie}")
+	public boolean removeMovieInFavoriteList(HttpServletRequest request, HttpServletResponse response, @PathVariable String username,
+			@PathVariable String movie) {
+
+		DatabaseService databaseService = new DatabaseService();
+
+		return databaseService.removeMovieInFavoriteList(username, movie);
+	}
+	
+	
+	@RequestMapping("/api/loadFavoriteList/{username}")
+	public List<String> loadFavoriteList(HttpServletRequest request, HttpServletResponse response, @PathVariable String username) {
+
+		DatabaseService databaseService = new DatabaseService();
+
+		return databaseService.getMovieInFavoriteList(username);
+	}
 }

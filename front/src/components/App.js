@@ -21,6 +21,7 @@ import userIcon from '../user.png';
 import moviesIcon from '../movies_icon.png';
 import { MenuList } from '@material-ui/core';
 
+import loadFavoriteList from '../actions/loadFavoriteList.js'
 import './App.css';
 
 const style = {
@@ -63,7 +64,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-	  
+		
   }
   handleChangeDrawer = () => {
 		if(this.props.connexionTest === "USER_CONNECTED") {
@@ -94,11 +95,14 @@ class App extends React.Component {
 	}
 
 	handleChangeConnexion = (username,pass) => {
-		this.setState({
-			show: "home",
-			usernameSession: username,
-			passwordSession:pass
+		this.props.loadFavoriteList(username).then((response) => {
+			this.setState({
+				show: "home",
+				usernameSession: username,
+				passwordSession:pass
+			});
 		});
+		
 	}
 
 	handleConnexionClick = () => {
@@ -107,7 +111,7 @@ class App extends React.Component {
 
 	handleSignOutClick = () => {
 		this.props.deconnexion();
-		this.setState({show: "home"});
+		this.setState({show: "home",usernameSession:"",passwordSession:""});
 	}
 	handleInscriptionClick = () => {
 		this.setState({show: "inscription"});
@@ -145,7 +149,7 @@ class App extends React.Component {
 		}
 		else if(this.state.show === "inscription_confirmation") {
 			return (
-				<InscriptionConfirmation handleChangeHome={this.handleChangeHome} username={this.state.usernameSession} password={this.state.passwordSession}/>
+				<InscriptionConfirmation handleChangeConnexion={this.handleChangeConnexion} username={this.state.usernameSession} password={this.state.passwordSession}/>
 			)
 		}
 		else if (this.state.show === "track"){
@@ -249,6 +253,7 @@ const mapDispatchToProps = dispatch => ({
 			items : null,
 			error : null
 		}),
+	loadFavoriteList: (username) => dispatch(loadFavoriteList(username)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

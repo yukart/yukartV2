@@ -48,8 +48,15 @@ export default (state = defaultState, action) => {
       }; 
       
     case "DECONNEXION_SUCCESS":
-      state.connexion = false;
-      state.username = "";
+      state.appName= 'YukArt',
+      state.film= [],
+      state.artist= [],
+      state.track= [],
+      state.connexion= "",
+      state.verificationTest= false,
+      state.username= "",
+      state.inscription= "",
+      state.favoriteList= []
       return {
         ...state
       }; 
@@ -58,14 +65,26 @@ export default (state = defaultState, action) => {
       return {
         ...state
       };
-    case "FAVORITE_SUCCESS":
+    case "FAVORITE_ADD_SUCCESS":
       let tmp=[...state.favoriteList]; //MANDATORY TO SETSTATE THE STORE
       tmp.push(action.items);
       state.favoriteList = tmp;
       return {
         ...state
       };
+    case "FAVORITE_REMOVE_SUCCESS":
+      let tmp2=[...state.favoriteList]; //MANDATORY TO SETSTATE THE STORE
+      state.favoriteList = tmp2.filter(l=>l!==action.items);
+      return {
+        ...state
+      };
+    case "FAVORITE_LOAD_SUCCESS":
+      state.favoriteList = action.items;
+      return {
+        ...state
+      };
     default:
       return state;
   }
+  
 };

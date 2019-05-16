@@ -1,8 +1,11 @@
 package fr.dauphine.sia2.yukArt.services;
 
+import java.util.List;
+
 import fr.dauphine.sia2.tools.Hashage;
 import fr.dauphine.sia2.yukArt.data.DataBase;
 import fr.dauphine.sia2.yukArt.engine.MailManagement;
+import fr.dauphine.sia2.yukArt.objects.Film;
 
 public class DatabaseService {
 	DataBase db = new DataBase();
@@ -48,5 +51,13 @@ public class DatabaseService {
 
 	public boolean addMovieInFavoriteList(String username, String movie) {
 		return db.addMovieInFavoriteList(username,movie);
+	}
+	
+	public boolean removeMovieInFavoriteList(String username, String movie) {
+		return db.removeMovieInFavoriteList(username,movie);
+	}
+
+	public List<String> getMovieInFavoriteList(String username) {
+		return db.getMovieInFavoriteList(username);
 	}
 }

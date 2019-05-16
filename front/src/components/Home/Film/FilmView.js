@@ -6,8 +6,10 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import removeMovieInFavoriteList from '../../../actions/removeMovieInFavoriteList.js'
 import addMovieInFavoriteList from '../../../actions/addMovieInFavoriteList.js'
 import searchFilmByTitle from '../../../actions/searchFilmByTitle.js';
+
 import Banner from '../Banner';
 import ListMovies from './ListMovies';
 
@@ -33,8 +35,7 @@ class FilmView extends React.Component {
 	    };
 	  }
   componentWillMount() {
-   
-
+		
   }
 
   componentWillUnmount() {
@@ -55,7 +56,9 @@ class FilmView extends React.Component {
   };
 
   addMovieInFavoriteList = (title) => {
-		this.props.addMovieInFavoriteList(this.props.username,title);
+		this.props.favoriteList.filter(l => l === title).length > 0 ? 
+			this.props.removeMovieInFavoriteList(this.props.username,title) : 		
+			this.props.addMovieInFavoriteList(this.props.username,title);
 	}
 
   render() {
@@ -101,6 +104,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	updateListFilms: (name) => dispatch(searchFilmByTitle(name)),
 	addMovieInFavoriteList: (username, title) => dispatch(addMovieInFavoriteList(username,title)),
+	removeMovieInFavoriteList: (username, title) => dispatch(removeMovieInFavoriteList(username,title)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilmView);

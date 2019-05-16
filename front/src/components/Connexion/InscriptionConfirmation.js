@@ -20,7 +20,7 @@ handleClick = () => {
   this.props.verification(this.props.username,this.state.code).then(response => {
     if (this.props.verificationTest) {
       this.props.connexion(this.props.username,this.props.password).then(response => {
-        this.props.handleChangeHome();
+        this.props.handleChangeConnexion(this.props.username,this.props.password);
       });
     } 
     else {

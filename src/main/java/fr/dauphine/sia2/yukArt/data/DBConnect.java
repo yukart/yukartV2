@@ -17,6 +17,7 @@ import java.util.Random;
 import fr.dauphine.sia2.yukArt.engine.Comment;
 import fr.dauphine.sia2.yukArt.engine.Factory;
 import fr.dauphine.sia2.yukArt.engine.User;
+import fr.dauphine.sia2.yukArt.objects.Film;
 
 public class DBConnect {
 
@@ -165,10 +166,50 @@ public class DBConnect {
 		// System.out.println(db.getUser("vik3").isAccountConfirmed());
 	}
 
+	public boolean existsFavorite(String username, String movie) {
+		Statement request;
+		ResultSet res;
+		boolean tmp = false;
+		try {
+			String sql = "SELECT * FROM bridgefavoritemovie WHERE login = '" + username + "' AND movie= '" +movie+"';";
+			request = connect.createStatement();
+			res = request.executeQuery(sql);
+			tmp = res.next();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return tmp;
+	}
 	public boolean insertMovieInFavoriteList(String username, String movie) {
 		String sql = "Insert into bridgefavoritemovie(login,movie) Values('"+username+"','"+movie+"');";
 		this.setUpdate(sql);
 		return true;
+	}
+	
+	public boolean removeMovieInFavoriteList(String username, String movie) {
+		String sql = "Delete from bridgefavoritemovie where login='"+username+"' and movie='"+movie+"';";
+		this.setUpdate(sql);
+		return true;
+	}
+
+	public List<String> getMovieInFavoriteList(String username) {
+		Statement request;
+		ResultSet resultSet;
+		String movie;
+		List<String> lMovie = new ArrayList<String>();
+		try {
+			request = connect.createStatement();
+			resultSet = request.executeQuery("select movie from bridgefavoritemovie where login='" + username + "'");
+
+			while (resultSet.next()) {
+				movie = resultSet.getString("movie");
+				lMovie.add(movie);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lMovie;
 	}
 
 }
