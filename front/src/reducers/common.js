@@ -8,6 +8,7 @@ const defaultState = {
   verificationTest: false,
   username: "",
   inscription: "",
+  favoriteList: []
 };
 
 export default (state = defaultState, action) => {
@@ -54,6 +55,13 @@ export default (state = defaultState, action) => {
       }; 
     case "INSCRIPTION_SUCCESS":
       state.inscription = action.items;
+      return {
+        ...state
+      };
+    case "FAVORITE_SUCCESS":
+      let tmp=[...state.favoriteList]; //MANDATORY TO SETSTATE THE STORE
+      tmp.push(action.items);
+      state.favoriteList = tmp;
       return {
         ...state
       };

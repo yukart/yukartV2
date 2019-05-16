@@ -20,7 +20,7 @@ handleClick = () => {
   this.props.connexion(this.state.username,this.state.password).then(response => {
     switch (this.props.connexionTest) {
       case "USER_CONNECTED":
-          this.props.handleChangeHome();
+          this.props.handleChangeConnexion(this.state.username, this.state.password);
           break;
       case "USER_NOT_EXISTS":
           alert("User unknown");
