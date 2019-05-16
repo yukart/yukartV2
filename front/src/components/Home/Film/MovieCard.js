@@ -23,8 +23,6 @@ const MovieCard = ({ movie, favoriteList, onAddListPressed }) => (
       </div>
       <div className="movie-card-button-container">
         <Button
-          buttonStyleOptions="round-button"
-          iconStyleOptions="fa-fw"
           icon={favoriteList.filter(l => l.title === movie.title).length ? 'check' : 'plus'}
           onButtonPressed={() => onAddListPressed(movie)}
         />

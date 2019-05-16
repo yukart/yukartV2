@@ -147,7 +147,10 @@ class App extends React.Component {
 		}
     };
   
-  
+  setIconMenuOpen = (bool) => {
+		this.setState({iconMenuOpened: bool});
+	};
+
   render() {
       return (
         <div>

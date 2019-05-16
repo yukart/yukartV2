@@ -54,7 +54,7 @@ class FilmView extends React.Component {
   };
 
   addMovieInFavoriteList = () => {
-		//TODO
+		console.log("WORKS!")
 	}
 
   render() {

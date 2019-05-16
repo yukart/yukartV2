@@ -106,3 +106,39 @@
   text-align: left;
   width: 30%;
 }
+
+.movie-card-button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 20%;
+}
+
+.default-button.round-button {
+  border-radius: 50%;
+  padding: 5px 3px 5px 3px;
+}
+
+.default-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.75;
+  background-color: #222;
+  border: 1px solid #aaa;
+  color: #fff;
+  padding: 8px 25px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.default-button:hover {
+  background-color: #333;
+}
+
+.default-button:focus {
+  outline: 0;
+}
