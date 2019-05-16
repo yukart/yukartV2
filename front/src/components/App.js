@@ -93,6 +93,14 @@ class App extends React.Component {
 		});
 	}
 
+	handleChangeConnexion = (username,pass) => {
+		this.setState({
+			show: "home",
+			usernameSession: username,
+			passwordSession:pass
+		});
+	}
+
 	handleConnexionClick = () => {
 		this.setState({show: "connexion"});
 	}
@@ -117,7 +125,7 @@ class App extends React.Component {
 	  }
 	  else if(this.state.show === "film"){
 		  return (
-				  <FilmView />
+				  <FilmView username={this.state.usernameSession}/>
 		  )
 	  }
 	  else if(this.state.show === "musique"){
@@ -127,7 +135,7 @@ class App extends React.Component {
 		} 
 		else if(this.state.show === "connexion") {
 			return (
-				<Login handleChangeHome={this.handleChangeHome} handleChangeInscriptionConfirmation={this.handleChangeInscriptionConfirmation} />
+				<Login handleChangeConnexion={this.handleChangeConnexion} handleChangeInscriptionConfirmation={this.handleChangeInscriptionConfirmation} />
 			)
 		}
 		else if(this.state.show === "inscription") {
@@ -147,7 +155,10 @@ class App extends React.Component {
 		}
     };
   
-  
+  setIconMenuOpen = (bool) => {
+		this.setState({iconMenuOpened: bool});
+	};
+
   render() {
       return (
         <div>

@@ -165,4 +165,10 @@ public class DBConnect {
 		// System.out.println(db.getUser("vik3").isAccountConfirmed());
 	}
 
+	public boolean insertMovieInFavoriteList(String username, String movie) {
+		String sql = "Insert into bridgefavoritemovie(login,movie) Values('"+username+"','"+movie+"');";
+		this.setUpdate(sql);
+		return true;
+	}
+
 }

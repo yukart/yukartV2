@@ -45,4 +45,8 @@ public class DatabaseService {
 		}
 		return false;
 	}
+
+	public boolean addMovieInFavoriteList(String username, String movie) {
+		return db.addMovieInFavoriteList(username,movie);
+	}
 }

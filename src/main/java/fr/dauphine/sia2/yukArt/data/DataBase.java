@@ -46,4 +46,8 @@ public class DataBase {
 		dataBConnect.updateUserConfirmed(login);
 	}
 
+	public boolean addMovieInFavoriteList(String username, String movie) {
+		return dataBConnect.insertMovieInFavoriteList(username, movie);
+	}
+
 }

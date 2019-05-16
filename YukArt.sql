@@ -12,6 +12,11 @@ CREATE TABLE users (
 	CONSTRAINT PK_USERS PRIMARY KEY (id_user)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE bridgeFavoriteMovie (
+	login VARCHAR(20) NOT NULL UNIQUE,
+	movie VARCHAR(100) NOT NULL,
+	CONSTRAINT PK_USERS PRIMARY KEY (login,movie)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 -- INSERT INTO users (login, password, email, isAdmin) VALUES
 -- ('Admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'admin@ok.fr', true),
 -- ('Vik', 'vik', 'vik@vik.fr', true);

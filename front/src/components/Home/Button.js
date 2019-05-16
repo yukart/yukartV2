@@ -1,14 +1,19 @@
 import React from 'react';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import AddCircle from '@material-ui/icons/AddCircleOutline'
 
-const Button = ({ type, buttonStyleOptions, onButtonPressed, icon, iconStyleOptions, children }) => (
+const Button = ({onButtonPressed, icon}) => (
   <button
-    className={`${type ? type : 'default'}-button ${buttonStyleOptions}`}
     onClick={() => onButtonPressed()}
+    className="default-button"
   >
-    {icon &&
-      <i className={`fa fa-${icon} ${iconStyleOptions}`} aria-hidden="true" style={{ paddingRight: children ? '3px' : null }}></i>
+    {icon === "check" &&
+      <CheckCircle />
     }
-    {children}
+
+    {icon === "plus" &&
+      <AddCircle />
+    }
   </button>
 );
 
