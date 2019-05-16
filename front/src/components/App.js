@@ -18,7 +18,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconMenu from 'material-ui/IconMenu';
 
 import userIcon from '../user.png';
-import moviesIcon from '../moves_icon.png';
+import moviesIcon from '../movies_icon.png';
 import { MenuList } from '@material-ui/core';
 
 import './App.css';
