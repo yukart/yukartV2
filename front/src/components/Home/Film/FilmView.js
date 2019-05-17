@@ -35,7 +35,7 @@ class FilmView extends React.Component {
 	    };
 	  }
   componentWillMount() {
-		
+
   }
 
   componentWillUnmount() {
@@ -55,10 +55,10 @@ class FilmView extends React.Component {
 	   });
   };
 
-  addMovieInFavoriteList = (title) => {
-		this.props.favoriteList.filter(l => l === title).length > 0 ? 
-			this.props.removeMovieInFavoriteList(this.props.username,title) : 		
-			this.props.addMovieInFavoriteList(this.props.username,title);
+  addMovieInFavoriteList = (movie) => {
+		this.props.favoriteList.filter(l => l.title === movie.title).length > 0 ? 
+			this.props.removeMovieInFavoriteList(this.props.username,movie.title) : 		
+			this.props.addMovieInFavoriteList(this.props.username,movie.title);
 	}
 
   render() {

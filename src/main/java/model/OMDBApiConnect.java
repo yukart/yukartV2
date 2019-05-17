@@ -50,7 +50,7 @@ public class OMDBApiConnect {
 	public String searchMovieByTitle(String title) {
 
 		String movieTitle = title.replaceAll("\\s+", "+");
-
+		movieTitle = movieTitle.replaceAll("\\&", "%26");
 		String requestUrl = SEARCH_URL.replaceAll("TITLE", movieTitle);
 
 		return sendGetRequest(requestUrl);

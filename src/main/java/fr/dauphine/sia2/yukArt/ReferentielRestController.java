@@ -90,7 +90,7 @@ public class ReferentielRestController {
 		return databaseService.testInscription(login, password, email);
 	}
 	@RequestMapping("/api/addMovieInFavoriteList/{username}/{movie}")
-	public boolean addMovieInFavoriteList(HttpServletRequest request, HttpServletResponse response, @PathVariable String username,
+	public Film addMovieInFavoriteList(HttpServletRequest request, HttpServletResponse response, @PathVariable String username,
 			@PathVariable String movie) {
 
 		DatabaseService databaseService = new DatabaseService();
@@ -109,7 +109,7 @@ public class ReferentielRestController {
 	
 	
 	@RequestMapping("/api/loadFavoriteList/{username}")
-	public List<String> loadFavoriteList(HttpServletRequest request, HttpServletResponse response, @PathVariable String username) {
+	public List<Film> loadFavoriteList(HttpServletRequest request, HttpServletResponse response, @PathVariable String username) {
 
 		DatabaseService databaseService = new DatabaseService();
 

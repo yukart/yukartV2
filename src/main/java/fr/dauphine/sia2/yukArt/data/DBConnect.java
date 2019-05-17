@@ -14,14 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.json.simple.parser.ParseException;
+
 import fr.dauphine.sia2.yukArt.engine.Comment;
 import fr.dauphine.sia2.yukArt.engine.Factory;
 import fr.dauphine.sia2.yukArt.engine.User;
 import fr.dauphine.sia2.yukArt.objects.Film;
+import fr.dauphine.sia2.yukArt.services.FilmService;
 
 public class DBConnect {
 
 	private Connection connect;
+
+	private FilmService filmService;
 
 	public DBConnect() {
 		// File file = new File(
@@ -57,6 +62,8 @@ public class DBConnect {
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
+		
+		filmService = new FilmService();
 	}
 
 	// Vérifié que le login n'est pas déjé pris
@@ -181,10 +188,17 @@ public class DBConnect {
 		}
 		return tmp;
 	}
-	public boolean insertMovieInFavoriteList(String username, String movie) {
+	public Film insertMovieInFavoriteList(String username, String movie) {
 		String sql = "Insert into bridgefavoritemovie(login,movie) Values('"+username+"','"+movie+"');";
 		this.setUpdate(sql);
-		return true;
+		
+		try {
+			return filmService.searchMovieByTitle(movie);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public boolean removeMovieInFavoriteList(String username, String movie) {
@@ -193,18 +207,25 @@ public class DBConnect {
 		return true;
 	}
 
-	public List<String> getMovieInFavoriteList(String username) {
+	public List<Film> getMovieInFavoriteList(String username) {
 		Statement request;
 		ResultSet resultSet;
 		String movie;
-		List<String> lMovie = new ArrayList<String>();
+		List<Film> lMovie = new ArrayList<Film>();
+		
 		try {
 			request = connect.createStatement();
 			resultSet = request.executeQuery("select movie from bridgefavoritemovie where login='" + username + "'");
 
 			while (resultSet.next()) {
 				movie = resultSet.getString("movie");
-				lMovie.add(movie);
+				Film film = null;
+				try {
+					film = filmService.searchMovieByTitle(movie);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				lMovie.add(film);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

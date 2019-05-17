@@ -74,7 +74,7 @@ export default (state = defaultState, action) => {
       };
     case "FAVORITE_REMOVE_SUCCESS":
       let tmp2=[...state.favoriteList]; //MANDATORY TO SETSTATE THE STORE
-      state.favoriteList = tmp2.filter(l=>l!==action.items);
+      state.favoriteList = tmp2.filter(l=>l.title!==action.items);
       return {
         ...state
       };

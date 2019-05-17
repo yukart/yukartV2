@@ -6,6 +6,7 @@ import Login from './Connexion/Login.js';
 import Register from './Connexion/Register.js';
 import InscriptionConfirmation from './Connexion/InscriptionConfirmation.js';
 import TrackView from './Home/Musique/TrackView.js';
+import FavoriteFilmView from './Home/Film/FavoriteFilmView.js';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -120,6 +121,11 @@ class App extends React.Component {
   handleChangeTrack = () => {
     this.setState({show: "track"});
     this.handleChangeDrawer();
+	}
+	
+	handleChangeFavoriteMovies = () => {
+    this.setState({show: "favoriteMovies"});
+    this.handleChangeDrawer();
   }
   getContent = () => {
 	  if(this.state.show === "home") {
@@ -155,6 +161,11 @@ class App extends React.Component {
 		else if (this.state.show === "track"){
 		  return (
 		    <TrackView />
+		    )
+		}
+		else if (this.state.show === "favoriteMovies"){
+		  return (
+		    <FavoriteFilmView username={this.state.usernameSession}/>
 		    )
 		}
     };
@@ -212,17 +223,27 @@ class App extends React.Component {
 										primaryText={"MOVIES"}
 										style={{color: 'white'}}
 										onClick={this.handleChangeFilm}
-									/>
+								/>
 								<MenuItem
 										primaryText={"ARTISTS"}
 										style={{color: 'white'}}
-									onClick={this.handleChangeMusique}
-									/>
+										onClick={this.handleChangeMusique}
+								/>
 								<MenuItem
 										primaryText={"TRACKS"}
 										style={{color: 'white'}}
 									onClick={this.handleChangeTrack}
-									/>
+								/>
+								<MenuItem
+										primaryText={""}
+										style={{backgroundColor: 'white'}}
+										onClick={() => ""}
+								/>
+								<MenuItem
+										primaryText={"FAVORITE MOVIES"}
+										style={{color: 'white'}}
+										onClick={this.handleChangeFavoriteMovies}
+								/>
 								</MenuList>
 					
 							</Drawer>

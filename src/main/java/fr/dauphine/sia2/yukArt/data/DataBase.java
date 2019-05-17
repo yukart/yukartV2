@@ -49,7 +49,7 @@ public class DataBase {
 		dataBConnect.updateUserConfirmed(login);
 	}
 
-	public boolean addMovieInFavoriteList(String username, String movie) {
+	public Film addMovieInFavoriteList(String username, String movie) {
 		return dataBConnect.insertMovieInFavoriteList(username, movie);
 	}
 
@@ -58,7 +58,7 @@ public class DataBase {
 		return dataBConnect.removeMovieInFavoriteList(username, movie);
 	}
 
-	public List<String> getMovieInFavoriteList(String username) {
+	public List<Film> getMovieInFavoriteList(String username) {
 		return dataBConnect.getMovieInFavoriteList(username);
 	}
 }

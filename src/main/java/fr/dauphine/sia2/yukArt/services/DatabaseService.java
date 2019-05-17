@@ -49,7 +49,7 @@ public class DatabaseService {
 		return false;
 	}
 
-	public boolean addMovieInFavoriteList(String username, String movie) {
+	public Film addMovieInFavoriteList(String username, String movie) {
 		return db.addMovieInFavoriteList(username,movie);
 	}
 	
@@ -57,7 +57,7 @@ public class DatabaseService {
 		return db.removeMovieInFavoriteList(username,movie);
 	}
 
-	public List<String> getMovieInFavoriteList(String username) {
+	public List<Film> getMovieInFavoriteList(String username) {
 		return db.getMovieInFavoriteList(username);
 	}
 }

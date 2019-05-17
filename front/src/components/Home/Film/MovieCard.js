@@ -25,8 +25,14 @@ class MovieCard extends React.Component {
           </div>
           <div className="movie-card-button-container">
             <Button
-              icon={this.props.favoriteList.filter(l => l === this.props.movie.title).length ? 'check' : 'plus'}
-              onButtonPressed={() => this.props.onAddListPressed(this.props.movie.title)}
+              icon={this.props.favoriteList.filter(l => l.title === this.props.movie.title).length ? 'check' : 'plus'}
+              onButtonPressed={() => this.props.onAddListPressed({
+                title: this.props.movie.title,
+                release_date: this.props.movie.release_date,
+                rating: this.props.movie.rating,
+                synopsis: this.props.movie.synopsis,
+                poster_url:this.props.movie.poster_url
+              })}
             />
           </div>
         </div>
