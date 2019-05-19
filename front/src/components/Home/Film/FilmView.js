@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Paper from 'material-ui/Paper';
-
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import removeMovieInFavoriteList from '../../../actions/removeMovieInFavoriteList.js';
 import addMovieInFavoriteList from '../../../actions/addMovieInFavoriteList.js';
@@ -31,7 +31,8 @@ class FilmView extends React.Component {
 	    super(props);
 	    this.state = {
     		open: false,
-    		value: "",
+				value: "",
+				loading: false,
 	    };
 	  }
   componentWillMount() {
@@ -48,11 +49,15 @@ class FilmView extends React.Component {
 	    });
 	  };
   handleButton = () => {
-	  this.props.updateListFilms(this.state.value);
-	  
-	  this.setState({
-	  	  value: ""
+		this.setState({
+			loading: true,
+	 });
+	  this.props.updateListFilms(this.state.value).then((response) => {
+			this.setState({
+				value: "",
+				loading: false
 	   });
+		});
   };
 
   addMovieInFavoriteList = (movie) => {
@@ -75,18 +80,19 @@ class FilmView extends React.Component {
 	    			    <RaisedButton label="Search" primary={true} onClick={this.handleButton}/>
 	    			    </div>
 	    				<div className="row">
-								{this.props.film !== null && this.props.film.length !== 0 &&
-									<h1> Search results </h1>
+								{this.props.film !== null && this.props.film.length !== 0 && !this.state.loading && 
+									<div>
+										<h1> Search results </h1>
+										<ListMovies
+											movies={this.props.film}
+											favoriteList={this.props.favoriteList}
+											onAddListPressed={movie => this.addMovieInFavoriteList(movie)}
+										/>
+									</div>
 								}
-							
-								{this.props.film !== null && this.props.film.length !== 0 &&
-									<ListMovies
-										movies={this.props.film}
-										favoriteList={this.props.favoriteList}
-										onAddListPressed={movie => this.addMovieInFavoriteList(movie)}
-									/>
-							}
-
+								{this.props.film !== null && this.state.loading &&
+									<CircularProgress size={60} thickness={7} />
+								}
 							</div>
 						</div>
 					</Paper>
@@ -98,7 +104,7 @@ class FilmView extends React.Component {
 const mapStateToProps = state => ({
   appName: state.common.appName,
 	film: state.common.film,
-	favoriteList: state.common.favoriteList,
+	favoriteList: state.common.favoriteMovieList,
 });
 
 const mapDispatchToProps = dispatch => ({

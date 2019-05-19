@@ -13,6 +13,7 @@ import Carousel from './Home/Film/Carousel.js';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -176,6 +177,9 @@ class App extends React.Component {
 								))}
 								</Carousel>
 							</div>
+						}
+						{this.props.connexionTest === "USER_CONNECTED" && this.props.recommandationMovieList.length == 0 &&
+							<CircularProgress size={60} thickness={7} />
 						}
 						
 					</div>
