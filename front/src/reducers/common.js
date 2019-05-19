@@ -93,12 +93,14 @@ export default (state = defaultState, action) => {
       }; 
 
     case "POPULAR_MOVIE_LOAD_SUCCESS":
-      state.popularMovieList=action.items
+      state.popularMovieList=action.items;
       return {
         ...state
       };
     case "RECOMMANDATION_MOVIE_LOAD_SUCCESS":
-        state.recommandationMovieList=action.items
+        var tmp=[...state.recommandationMovieList];
+        tmp = action.items;
+        state.recommandationMovieList=tmp;
         return {
           ...state
         };

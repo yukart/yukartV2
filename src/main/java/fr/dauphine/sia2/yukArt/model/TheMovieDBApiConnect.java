@@ -1,4 +1,4 @@
-package model;
+package fr.dauphine.sia2.yukArt.model;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

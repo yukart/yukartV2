@@ -8,7 +8,8 @@ import com.wrapper.spotify.Api;
 import com.wrapper.spotify.methods.ArtistSearchRequest;
 import com.wrapper.spotify.models.Artist;
 import com.wrapper.spotify.models.Page;
-import model.SpotifyConnect;
+
+import fr.dauphine.sia2.yukArt.model.SpotifyConnect;
 
 @Service
 public class MusicService {

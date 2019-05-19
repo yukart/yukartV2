@@ -88,9 +88,6 @@ class App extends React.Component {
 	  this.handleChangeDrawer();
   }
   handleChangeHome = () => {
-		if(this.state.show === "home") {
-			window.location.reload();
-		}
 		this.setState({show: "home"});
 		this.props.reset();
   }
@@ -147,7 +144,7 @@ class App extends React.Component {
 	addMovieInFavoriteList = (movie) => {
 		this.props.favoriteMovieList.filter(l => l.title === movie.title).length > 0 ? 
 			this.props.removeMovieInFavoriteList(this.props.username,movie.title) : 		
-			this.props.addMovieInFavoriteList(this.props.username,movie.title);
+			this.props.addMovieInFavoriteList(this.props.username,movie.title).then((response) => this.props.loadRecommandationsMovies(this.props.username));
 	}
 
   getContent = () => {

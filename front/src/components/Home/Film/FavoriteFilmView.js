@@ -64,7 +64,7 @@ class FavoriteFilmView extends React.Component {
 }
 const mapStateToProps = state => ({
   appName: state.common.appName,
-	favoriteList: state.common.favoriteList,
+	favoriteList: state.common.favoriteMovieList,
 });
 
 const mapDispatchToProps = dispatch => ({

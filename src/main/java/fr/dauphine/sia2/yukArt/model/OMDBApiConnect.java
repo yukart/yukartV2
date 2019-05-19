@@ -1,4 +1,4 @@
-package model;
+package fr.dauphine.sia2.yukArt.model;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -10,6 +10,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * Not used
+ *
+ */
 public class OMDBApiConnect {
 
 	private static String API_KEY = "a9383e9";

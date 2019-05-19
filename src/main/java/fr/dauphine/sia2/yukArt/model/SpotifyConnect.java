@@ -1,4 +1,4 @@
-package model;
+package fr.dauphine.sia2.yukArt.model;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;

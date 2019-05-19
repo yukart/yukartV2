@@ -10,8 +10,8 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import fr.dauphine.sia2.yukArt.objects.Film;
-import model.OMDBApiConnect;
-import model.TheMovieDBApiConnect;
+import fr.dauphine.sia2.yukArt.model.OMDBApiConnect;
+import fr.dauphine.sia2.yukArt.model.TheMovieDBApiConnect;
 
 @Service
 public class FilmService {
@@ -21,51 +21,78 @@ public class FilmService {
 	private static final Integer RECOMMANDATION_SIZE = 15;
 	
 	public Film searchMovieByTitle(String name) throws ParseException {
-		OMDBApiConnect omdb = new OMDBApiConnect();
-		String result = omdb.searchMovieByTitle(name);
-
-		JSONObject jsonFilm = omdb.parseToJson(result);
-
-		if (jsonFilm.get("Response").toString().equals("False")) {
-			return null;
-		}
-
-		
-		List<String> genres = new ArrayList<>();
-		genres.add(jsonFilm.get("Genre").toString());
-		
-		Film film = new Film(jsonFilm.get("Title").toString(), jsonFilm.get("Year").toString(),
-				jsonFilm.get("Released").toString(), jsonFilm.get("Runtime").toString(),
-				genres, jsonFilm.get("Plot").toString(), jsonFilm.get("Poster").toString(),jsonFilm.get("imdbRating").toString());
-		return film;
-	}
-
-	public List<Film> searchAllMovieByTitle(String name) throws ParseException {
-		OMDBApiConnect omdb = new OMDBApiConnect();
+		TheMovieDBApiConnect omdb = new TheMovieDBApiConnect();
 		String result = omdb.searchAllMovieByTitle(name);
 
 		JSONObject jsonResult = omdb.parseToJson(result);
 
-		if (jsonResult.get("Response").toString().equals("False")) {
+		if (jsonResult.get("total_results").toString().equals("0")) {
 			return null;
 		}
 
-		JSONArray jsonFilms = (JSONArray) jsonResult.get("Search");
+		JSONArray jsonFilms = (JSONArray) jsonResult.get("results");
+		
+		JSONObject jsonFilm = (JSONObject) jsonFilms.get(0);
+		
+		
+		String resultDetailledFilm = omdb.searchDetailledMovieById(jsonFilm.get("id").toString());
+		JSONObject jsonDetailledFilm = omdb.parseToJson(resultDetailledFilm);
+		
+		List<String> genres = new ArrayList<>();
+		JSONArray genresJSONArray = (JSONArray) jsonDetailledFilm.get("genres");
+		
+		for(Object genre : genresJSONArray) {
+			JSONObject genreJSONObject = (JSONObject) genre;
+			genres.add(genreJSONObject.get("name").toString());
+		}
+		
+		String poster = POSTER.replaceAll("PATH", jsonDetailledFilm.get("poster_path").toString());
+		String imdb_url = SEARCH_IMDB.replaceAll("IMDB_ID", jsonDetailledFilm.get("imdb_id").toString());
 
+		Film film = new Film(jsonDetailledFilm.get("original_title").toString(), jsonDetailledFilm.get("release_date").toString().split("-")[0],
+				jsonDetailledFilm.get("release_date") == null ? null : jsonDetailledFilm.get("release_date").toString(), jsonDetailledFilm.get("runtime")== null ? null :jsonDetailledFilm.get("runtime").toString(),
+				genres, jsonDetailledFilm.get("overview").toString(),
+				poster,jsonDetailledFilm.get("vote_average").toString(),imdb_url);
+		
+		return film;
+	}
+
+	public List<Film> searchAllMovieByTitle(String name) throws ParseException {
+		TheMovieDBApiConnect omdb = new TheMovieDBApiConnect();
+		String result = omdb.searchAllMovieByTitle(name);
+
+		JSONObject jsonResult = omdb.parseToJson(result);
+
+		if (jsonResult.get("total_results").toString().equals("0")) {
+			return null;
+		}
+
+		JSONArray jsonFilms = (JSONArray) jsonResult.get("results");
+		
+	
 		List<Film> films = new ArrayList<>();
 
 		for (Object film : jsonFilms) {
 			JSONObject jsonFilm = (JSONObject) film;
-			String resultDetailledFilm = omdb.searchMovieByImdb(jsonFilm.get("imdbID").toString());
+
+			String resultDetailledFilm = omdb.searchDetailledMovieById(jsonFilm.get("id").toString());
 			JSONObject jsonDetailledFilm = omdb.parseToJson(resultDetailledFilm);
 			
 			List<String> genres = new ArrayList<>();
-			genres.add(jsonDetailledFilm.get("Genre").toString());
+			JSONArray genresJSONArray = (JSONArray) jsonDetailledFilm.get("genres");
 			
-			films.add(new Film(jsonDetailledFilm.get("Title").toString(), jsonDetailledFilm.get("Year").toString(),
-					jsonDetailledFilm.get("Released").toString(), jsonDetailledFilm.get("Runtime").toString(),
-					genres, jsonDetailledFilm.get("Plot").toString(),
-					jsonDetailledFilm.get("Poster").toString(),jsonDetailledFilm.get("imdbRating").toString()));
+			for(Object genre : genresJSONArray) {
+				JSONObject genreJSONObject = (JSONObject) genre;
+				genres.add(genreJSONObject.get("name").toString());
+			}
+			
+			String poster = POSTER.replaceAll("PATH", jsonDetailledFilm.get("poster_path").toString());
+			String imdb_url = SEARCH_IMDB.replaceAll("IMDB_ID", jsonDetailledFilm.get("imdb_id").toString());
+
+			films.add(new Film(jsonDetailledFilm.get("original_title").toString(), jsonDetailledFilm.get("release_date").toString().split("-")[0],
+					jsonDetailledFilm.get("release_date") == null ? null : jsonDetailledFilm.get("release_date").toString(), jsonDetailledFilm.get("runtime")== null ? null :jsonDetailledFilm.get("runtime").toString(),
+					genres, jsonDetailledFilm.get("overview").toString(),
+					poster,jsonDetailledFilm.get("vote_average").toString(),imdb_url));
 		}
 
 		return films;

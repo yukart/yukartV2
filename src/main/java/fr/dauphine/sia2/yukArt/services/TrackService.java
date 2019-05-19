@@ -7,7 +7,7 @@ import com.wrapper.spotify.methods.TrackSearchRequest;
 import com.wrapper.spotify.models.Page;
 import com.wrapper.spotify.models.Track;
 
-import model.SpotifyConnect;
+import fr.dauphine.sia2.yukArt.model.SpotifyConnect;
 
 public class TrackService {
 	public List<Track> searchTrack(String name)  {
