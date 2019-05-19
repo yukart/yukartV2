@@ -7,6 +7,8 @@ import Register from './Connexion/Register.js';
 import InscriptionConfirmation from './Connexion/InscriptionConfirmation.js';
 import TrackView from './Home/Musique/TrackView.js';
 import FavoriteFilmView from './Home/Film/FavoriteFilmView.js';
+import MovieCard from './Home/Film/MovieCard.js';
+import Carousel from './Home/Film/Carousel.js';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -22,7 +24,14 @@ import userIcon from '../user.png';
 import moviesIcon from '../movies_icon.png';
 import { MenuList } from '@material-ui/core';
 
-import loadFavoriteList from '../actions/loadFavoriteList.js'
+import loadFavoriteList from '../actions/loadFavoriteList.js';
+import loadPopularMovies from '../actions/loadPopularMovies.js';
+import loadRecommandationsMovies from '../actions/loadRecommandationsMovies.js';
+
+import removeMovieInFavoriteList from '../actions/removeMovieInFavoriteList.js';
+import addMovieInFavoriteList from '../actions/addMovieInFavoriteList.js';
+
+
 import './App.css';
 
 const style = {
@@ -65,7 +74,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-		
+		this.props.loadPopularMovies();
   }
   handleChangeDrawer = () => {
 		if(this.props.connexionTest === "USER_CONNECTED") {
@@ -73,17 +82,20 @@ class App extends React.Component {
 		}
   }
   handleChangeFilm = () => {
-	  this.setState({show: "film"});
+		this.setState({show: "film"});
+		this.props.reset();
 	  this.handleChangeDrawer();
   }
   handleChangeHome = () => {
 		if(this.state.show === "home") {
 			window.location.reload();
 		}
-	  this.setState({show: "home"});
+		this.setState({show: "home"});
+		this.props.reset();
   }
   handleChangeMusique = () => {
-	  this.setState({show: "musique"});
+		this.setState({show: "musique"});
+		this.props.reset();
 	  this.handleChangeDrawer();
 	}
 	
@@ -96,12 +108,13 @@ class App extends React.Component {
 	}
 
 	handleChangeConnexion = (username,pass) => {
+		this.setState({
+			show: "home",
+			usernameSession: username,
+			passwordSession:pass
+		});
 		this.props.loadFavoriteList(username).then((response) => {
-			this.setState({
-				show: "home",
-				usernameSession: username,
-				passwordSession:pass
-			});
+			this.props.loadRecommandationsMovies(username);
 		});
 		
 	}
@@ -119,18 +132,54 @@ class App extends React.Component {
 	}
   
   handleChangeTrack = () => {
-    this.setState({show: "track"});
+		this.setState({show: "track"});
+		this.props.reset();
     this.handleChangeDrawer();
 	}
 	
 	handleChangeFavoriteMovies = () => {
     this.setState({show: "favoriteMovies"});
     this.handleChangeDrawer();
-  }
+	}
+	
+
+	addMovieInFavoriteList = (movie) => {
+		this.props.favoriteMovieList.filter(l => l.title === movie.title).length > 0 ? 
+			this.props.removeMovieInFavoriteList(this.props.username,movie.title) : 		
+			this.props.addMovieInFavoriteList(this.props.username,movie.title);
+	}
+
   getContent = () => {
 	  if(this.state.show === "home") {
 		  return (
-					<Banner appName={this.props.appName}/>  
+					<div>
+						<Banner appName={this.props.appName}/>  
+						{this.props.connexionTest === "USER_CONNECTED" && this.props.recommandationMovieList.length > 0 &&
+							<div>
+								<Carousel title="Popular movies">
+									{this.props.popularMovieList.map(movie => (
+										<MovieCard
+											movie={movie}
+											favoriteList={this.props.favoriteMovieList}
+											onAddListPressed={movie => this.addMovieInFavoriteList(movie)}
+										/>
+									))}
+								</Carousel>
+							
+								<Carousel title="Recommandations movies">
+								{this.props.recommandationMovieList.map(movie => (
+									<MovieCard
+										movie={movie}
+										favoriteList={this.props.favoriteMovieList}
+										onAddListPressed={movie => this.addMovieInFavoriteList(movie)}
+									/>
+								))}
+								</Carousel>
+							</div>
+						}
+						
+					</div>
+				
 		  )
 	  }
 	  else if(this.state.show === "film"){
@@ -264,6 +313,9 @@ const mapStateToProps = state => {
 		appName: state.common.appName,
 		connexionTest: state.common.connexion,
 		username: state.common.username,
+		popularMovieList: state.common.popularMovieList,
+		favoriteMovieList: state.common.favoriteMovieList,
+		recommandationMovieList: state.common.recommandationMovieList,
   }};
 
 const mapDispatchToProps = dispatch => ({
@@ -275,6 +327,17 @@ const mapDispatchToProps = dispatch => ({
 			error : null
 		}),
 	loadFavoriteList: (username) => dispatch(loadFavoriteList(username)),
+	loadPopularMovies: () => dispatch(loadPopularMovies()),
+	loadRecommandationsMovies: (username) => dispatch(loadRecommandationsMovies(username)),
+	reset: () => 
+		dispatch(
+		{
+			type : 'RESET_SUCCESS',
+			items : null,
+			error : null
+		}),
+	addMovieInFavoriteList: (username, title) => dispatch(addMovieInFavoriteList(username,title)),
+	removeMovieInFavoriteList: (username, title) => dispatch(removeMovieInFavoriteList(username,title)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

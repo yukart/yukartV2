@@ -7,7 +7,7 @@ const loadFavoriteList = (username) => {
 		return axios.get('/api/loadFavoriteList/'+username)
 		      .then(function (message) {
 						dispatch({
-								type : 'FAVORITE_LOAD_SUCCESS',
+								type : 'FAVORITE_MOVIE_LOAD_SUCCESS',
 								items : message.data,
 								error : null,
 						})
@@ -15,7 +15,7 @@ const loadFavoriteList = (username) => {
 			.catch(function(error) {
 				console.error(error);
 				dispatch({
-					type : 'FAVORITE_LOAD_ERROR',
+					type : 'FAVORITE_MOVIE_LOAD_ERROR',
 					items : [],
 					error : error,
 				})

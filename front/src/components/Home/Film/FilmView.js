@@ -6,8 +6,8 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import removeMovieInFavoriteList from '../../../actions/removeMovieInFavoriteList.js'
-import addMovieInFavoriteList from '../../../actions/addMovieInFavoriteList.js'
+import removeMovieInFavoriteList from '../../../actions/removeMovieInFavoriteList.js';
+import addMovieInFavoriteList from '../../../actions/addMovieInFavoriteList.js';
 import searchFilmByTitle from '../../../actions/searchFilmByTitle.js';
 
 import Banner from '../Banner';

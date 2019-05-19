@@ -7,7 +7,7 @@ const removeMovieInFavoriteList = (username, movie) => {
 		return axios.get('/api/removeMovieInFavoriteList/'+username+"/"+movie)
 		      .then(function (message) {
 						dispatch({
-								type : 'FAVORITE_REMOVE_SUCCESS',
+								type : 'FAVORITE_MOVIE_REMOVE_SUCCESS',
 								items : movie,
 								error : null,
 						})
@@ -15,7 +15,7 @@ const removeMovieInFavoriteList = (username, movie) => {
 			.catch(function(error) {
 				console.error(error);
 				dispatch({
-					type : 'FAVORITE_REMOVE_ERROR',
+					type : 'FAVORITE_MOVIE_REMOVE_ERROR',
 					items : [],
 					error : error,
 				})

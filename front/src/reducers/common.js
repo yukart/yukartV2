@@ -1,4 +1,3 @@
-
 const defaultState = {
   appName: 'YukArt',
   film: [],
@@ -8,7 +7,9 @@ const defaultState = {
   verificationTest: false,
   username: "",
   inscription: "",
-  favoriteList: []
+  favoriteMovieList: [],
+  popularMovieList: [],
+  recommandationMovieList: []
 };
 
 export default (state = defaultState, action) => {
@@ -48,15 +49,15 @@ export default (state = defaultState, action) => {
       }; 
       
     case "DECONNEXION_SUCCESS":
-      state.appName= 'YukArt',
-      state.film= [],
-      state.artist= [],
-      state.track= [],
-      state.connexion= "",
-      state.verificationTest= false,
-      state.username= "",
-      state.inscription= "",
-      state.favoriteList= []
+      state.appName= 'YukArt';
+      state.film= [];
+      state.artist= [];
+      state.track= [];
+      state.connexion= "";
+      state.verificationTest= false;
+      state.username= "";
+      state.inscription= "";
+      state.favoriteMovieList= [];
       return {
         ...state
       }; 
@@ -65,24 +66,42 @@ export default (state = defaultState, action) => {
       return {
         ...state
       };
-    case "FAVORITE_ADD_SUCCESS":
-      let tmp=[...state.favoriteList]; //MANDATORY TO SETSTATE THE STORE
+    case "FAVORITE_MOVIE_ADD_SUCCESS":
+      let tmp=[...state.favoriteMovieList]; //MANDATORY TO SETSTATE THE STORE
       tmp.push(action.items);
-      state.favoriteList = tmp;
+      state.favoriteMovieList = tmp;
       return {
         ...state
       };
-    case "FAVORITE_REMOVE_SUCCESS":
-      let tmp2=[...state.favoriteList]; //MANDATORY TO SETSTATE THE STORE
-      state.favoriteList = tmp2.filter(l=>l.title!==action.items);
+    case "FAVORITE_MOVIE_REMOVE_SUCCESS":
+      let tmp2=[...state.favoriteMovieList]; //MANDATORY TO SETSTATE THE STORE
+      state.favoriteMovieList = tmp2.filter(l=>l.title!==action.items);
       return {
         ...state
       };
-    case "FAVORITE_LOAD_SUCCESS":
-      state.favoriteList = action.items;
+    case "FAVORITE_MOVIE_LOAD_SUCCESS":
+      state.favoriteMovieList = action.items;
       return {
         ...state
       };
+    case "RESET_SUCCESS":
+      state.film= [];
+      state.artist= [];
+      state.track= [];
+      return {
+        ...state
+      }; 
+
+    case "POPULAR_MOVIE_LOAD_SUCCESS":
+      state.popularMovieList=action.items
+      return {
+        ...state
+      };
+    case "RECOMMANDATION_MOVIE_LOAD_SUCCESS":
+        state.recommandationMovieList=action.items
+        return {
+          ...state
+        };
     default:
       return state;
   }

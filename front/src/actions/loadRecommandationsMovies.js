@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-const addMovieInFavoriteList = (username, movie) => {
+const loadRecommandationsMovies = (username) => {
 	
 	return (dispatch) => {
 		
-		return axios.get('/api/addMovieInFavoriteList/'+username+"/"+movie)
+		return axios.get('/api/loadRecommandationsMovies/'+username)
 		      .then(function (message) {
 						dispatch({
-								type : 'FAVORITE_MOVIE_ADD_SUCCESS',
+								type : 'RECOMMANDATION_MOVIE_LOAD_SUCCESS',
 								items : message.data,
 								error : null,
 						})
@@ -15,11 +15,11 @@ const addMovieInFavoriteList = (username, movie) => {
 			.catch(function(error) {
 				console.error(error);
 				dispatch({
-					type : 'FAVORITE_MOVIE_ADD_ERROR',
+					type : 'RECOMMANDATION_MOVIE_LOAD_ERROR',
 					items : [],
 					error : error,
 				})
 			})
 	}
 }
-export default addMovieInFavoriteList;
+export default loadRecommandationsMovies;

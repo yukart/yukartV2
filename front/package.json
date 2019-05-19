@@ -23,7 +23,8 @@
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "react-items-carousel": "^2.2.1"
   },
   "scripts": {
     "start": "cross-env PORT=4100 react-scripts start",
