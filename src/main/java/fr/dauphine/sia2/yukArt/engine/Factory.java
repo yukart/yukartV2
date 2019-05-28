@@ -4,7 +4,7 @@ public class Factory {
 
 	public static User getUser(int id, String login, String password, String email, boolean isAdmin,
 			int mailConfirmation, boolean isAccountConfirmed) {
-		// Possibilit� de faire un traitement sur le password ici
+		// Possibilite de faire un traitement sur le password ici
 		return new User(id, login, password, email, isAdmin, mailConfirmation, isAccountConfirmed);
 	}
 
