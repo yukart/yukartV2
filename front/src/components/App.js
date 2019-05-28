@@ -154,7 +154,7 @@ class App extends React.Component {
 						<Banner appName={this.props.appName}/>  
 						{this.props.connexionTest === "USER_CONNECTED" && this.props.recommandationMovieList.length > 0 &&
 							<div>
-								<Carousel title="Popular movies">
+								<Carousel title="Popular movies" >
 									{this.props.popularMovieList.map(movie => (
 										<MovieCard
 											movie={movie}
@@ -176,7 +176,7 @@ class App extends React.Component {
 							</div>
 						}
 						{this.props.connexionTest === "USER_CONNECTED" && this.props.recommandationMovieList.length == 0 &&
-							<CircularProgress size={60} thickness={7} />
+							<CircularProgress size={60} thickness={7} color={'#f16e00'} />
 						}
 						
 					</div>

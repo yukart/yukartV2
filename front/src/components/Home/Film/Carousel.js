@@ -13,7 +13,7 @@ class Carousel extends Component {
 
     return (
       <div className="carousel-container">
-        <div className="carousel-title">
+        <div className="carousel-title" style={{color: '#f16e00'}}>
           {title}
         </div>
         <div className="carousel-content">
@@ -37,8 +37,8 @@ class Carousel extends Component {
             activePosition={'center'}
 
             chevronWidth={24}
-            rightChevron={<i className="fa fa-angle-right fa-5x" aria-hidden="true" style={{ color: '#fff'}}></i>}
-            leftChevron={<i className="fa fa-angle-left fa-5x" aria-hidden="true" style={{ color: '#fff'}}></i>}
+            rightChevron={<i className="fa fa-angle-right fa-5x" aria-hidden="true" style={{ color: '#f16e00'}}></i>}
+            leftChevron={<i className="fa fa-angle-left fa-5x" aria-hidden="true" style={{ color: '#f16e00'}}></i>}
             outsideChevron={false}
           >
             {children}

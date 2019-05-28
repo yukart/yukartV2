@@ -75,12 +75,12 @@ class TrackView extends React.Component {
                       value={this.state.valueTrack}
                       onChange={this.handleChangeTrack}
                     />
-                  <RaisedButton label="Search track" primary={true} onClick={this.handleButtonTrack}/>
+                  <RaisedButton label="Search track" primary={true} buttonStyle={{backgroundColor: '#f16e00'}} onClick={this.handleButtonTrack}/>
                 </div>
               </div>
               <div className="row">
                 {this.props.track !== null && this.props.track.length !== 0 &&
-                  <h1> Your research : </h1>
+                  <h1 style={{color: '#f16e00'}}> Your research : </h1>
                 }
                 {this.props.track !== null && this.props.track.length !== 0 &&
                   this.props.track.map((track) => 

@@ -44,7 +44,7 @@ class FavoriteFilmView extends React.Component {
     			<Paper zDepth={5}>
     				<Banner appName={this.props.appName}/>
 						<div className="container page">
-								<h1> Favorite movies </h1>
+								<h1 style={{color: '#f16e00'}}> Favorite movies </h1>
 								<div className="row">
 
 									<ListMovies
