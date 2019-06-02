@@ -10,6 +10,7 @@ class MovieCard extends React.Component {
       <div
         style={{      
           backgroundColor: '#202020',
+          boxShadow: '8px 8px 12px #555',
           backgroundImage: "url("+this.props.movie.poster_url+")"
         }}
         className="movie-card"

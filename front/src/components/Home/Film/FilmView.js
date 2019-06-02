@@ -77,12 +77,12 @@ class FilmView extends React.Component {
 	    		          value={this.state.value}
 	    		          onChange={this.handleChange}
 	    		        />
-	    			    <RaisedButton label="Search" primary={true} onClick={this.handleButton}/>
+	    			    <RaisedButton label="Search" primary={true} buttonStyle={{backgroundColor: '#f16e00'}} onClick={this.handleButton}/>
 	    			    </div>
 	    				<div className="row">
 								{this.props.film !== null && this.props.film.length !== 0 && !this.state.loading && 
 									<div>
-										<h1> Search results </h1>
+										<h1 style={{color: '#f16e00'}}> Your research : </h1>
 										<ListMovies
 											movies={this.props.film}
 											favoriteList={this.props.favoriteList}
@@ -91,7 +91,7 @@ class FilmView extends React.Component {
 									</div>
 								}
 								{this.props.film !== null && this.state.loading &&
-									<CircularProgress size={60} thickness={7} />
+									<CircularProgress size={60} thickness={7} color={'#f16e00'}/>
 								}
 							</div>
 						</div>

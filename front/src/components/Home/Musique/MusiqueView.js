@@ -75,12 +75,12 @@ class MusiqueView extends React.Component {
                       value={this.state.valueArtist}
                       onChange={this.handleChangeArtist}
                     />
-                  <RaisedButton label="Search artist" primary={true} onClick={this.handleButtonArtist}/>
+                  <RaisedButton label="Search artist" buttonStyle={{backgroundColor: '#f16e00'}} primary={true} onClick={this.handleButtonArtist}/>
                 </div>
               </div>
               <div className="row">
                 {this.props.artist !== null && this.props.artist.length !== 0 &&
-                  <h1> Your research : </h1>
+                  <h1 style={{color: '#f16e00'}}> Your research : </h1>
                 }
                 {this.props.artist !== null && this.props.artist.length !== 0 &&
                   this.props.artist.map((artist) => 
