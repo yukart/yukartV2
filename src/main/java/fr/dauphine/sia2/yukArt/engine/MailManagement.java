@@ -18,6 +18,7 @@ public class MailManagement {
 
 	public MailManagement() {
 
+		
 	}
 
 	public void sendMail(String email, String user) {
