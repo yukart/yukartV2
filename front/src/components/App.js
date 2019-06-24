@@ -32,7 +32,7 @@ import loadRecommandationsMovies from '../actions/loadRecommandationsMovies.js';
 import removeMovieInFavoriteList from '../actions/removeMovieInFavoriteList.js';
 import addMovieInFavoriteList from '../actions/addMovieInFavoriteList.js';
 
-
+import loadRecommandationsAlbums from '../actions/loadRecommandationsAlbums.js';
 import './App.css';
 
 const style = {
@@ -112,7 +112,7 @@ class App extends React.Component {
 			passwordSession:pass
 		});
 		this.props.loadFavoriteList(username).then((response) => {
-			this.props.loadRecommandationsMovies(username);
+			this.props.loadRecommandationsMovies(username),loadRecommandationsAlbums(username);
 		});
 		
 	}
@@ -330,6 +330,7 @@ const mapDispatchToProps = dispatch => ({
 	loadFavoriteList: (username) => dispatch(loadFavoriteList(username)),
 	loadPopularMovies: () => dispatch(loadPopularMovies()),
 	loadRecommandationsMovies: (username) => dispatch(loadRecommandationsMovies(username)),
+	loadRecommandationsAlbums: (username) => dispatch(loadRecommandationsAlbums(username)),
 	reset: () => 
 		dispatch(
 		{
