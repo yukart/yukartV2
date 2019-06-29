@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wrapper.spotify.models.Artist;
+import com.wrapper.spotify.models.Page;
+import com.wrapper.spotify.models.SimpleAlbum;
 import com.wrapper.spotify.models.Track;
 
+import fr.dauphine.sia2.yukArt.model.SpotifyNewReleases;
 import fr.dauphine.sia2.yukArt.objects.Film;
 import fr.dauphine.sia2.yukArt.services.DatabaseService;
 import fr.dauphine.sia2.yukArt.services.FilmService;
@@ -130,5 +133,13 @@ public class ReferentielRestController {
 		FilmService filmService = new FilmService();
 
 		return filmService.searchRecommandations(username);
+	}
+	
+	@RequestMapping("/api/loadRecommandationsAlbums/{username}")
+	public Page<SimpleAlbum> loadRecommandationsAlbums(HttpServletRequest request, HttpServletResponse response, @PathVariable String username) throws ParseException {
+
+		SpotifyNewReleases newReleases = new SpotifyNewReleases();
+
+		return newReleases.recommandations();
 	}
 }

@@ -9,9 +9,7 @@ const defaultState = {
   inscription: "",
   favoriteMovieList: [],
   popularMovieList: [],
-  recommandationMovieList: [],
-  favoriteTrackList: [],
-  recommandationTrackList: [],
+  recommandationMovieList: []
 };
 
 export default (state = defaultState, action) => {
@@ -106,13 +104,6 @@ export default (state = defaultState, action) => {
         return {
           ...state
         };
-    case "RECOMMANDATION_ALBUM_LOAD_SUCCESS":
-        var tmp=[...state.recommandationAlbumList];
-        tmp = action.items;
-        state.recommandationAlbumList=tmp;
-        return {
-         ...state
-      };
     default:
       return state;
   }

@@ -5,12 +5,10 @@ import Paper from 'material-ui/Paper';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import CircularProgress from 'material-ui/CircularProgress';
-import removeTrackInFavoriteList from '../../../actions/removeTrackInFavoriteList.js';
-import addTrackInFavoriteList from '../../../actions/addTrackInFavoriteList.js';
+
+
 import searchTrack from '../../../actions/searchTrack.js';
 import Banner from '../Banner';
-import ListTrack from './ListTrack';
 
 const style = {
   paper: {
@@ -38,7 +36,6 @@ class TrackView extends React.Component {
       this.state = {
         open: false,
         value: "",
-        loading : false,
       };
     }
     
@@ -65,11 +62,6 @@ class TrackView extends React.Component {
         valueTrack: ""
     });
   };
-    addAlbumInFavoriteList = (track) => {
-    this.props.favoriteList.filter(l => l.title === track.name).length > 0 ? 
-      this.props.removeTrackInFavoriteList(this.props.username,track.name) :     
-      this.props.addTrackInFavoriteList(this.props.username,track.name);
-  }
   
   render() {
     return (
@@ -88,23 +80,33 @@ class TrackView extends React.Component {
               </div>
               <div className="row">
                 {this.props.track !== null && this.props.track.length !== 0 &&
-                  <div >
                   <h1 style={{color: '#f16e00'}}> Your research : </h1>
-                  <ListTrack 
-                  tracks = {this.props.track}
-                  favoriteList={this.props.favoriteList}
-                  onAddListPressed={track => this.addTrackInFavoriteList(track)}
-                />
-                </div>
                 }
-                
-             
-                {this.props.track !== null && this.props.track === "" && this.state.loading &&
-                  <CircularProgress size={60} thickness={7} color={'#f16e00'}/>
+                {this.props.track !== null && this.props.track.length !== 0 &&
+                  this.props.track.map((track) => 
+                    <Paper style={style.paper} zDepth={2}>
+                     {track.album.images[0] !== undefined &&
+                        <img alt="poster" width="25%" src={track.album.images[0].url}/>
+                      }
+                      <ul>
+                        <li style={style.puce}>Nom : {track.name} </li>
+                        <li style={style.puce}>Durée : {track.duration} </li>
+                        <li style={style.puce}>Artiste(s) : {track.artists.map((artist) => artist.name+"; ")} </li>
+                        <li style={style.puce}>Popularité: {track.popularity}%</li>
+                        <li style={style.puce}> <a href={track.externalUrls.externalUrls.spotify} target="_blank" alt="lien spotify"> Ecouter cette chanson</a>  </li>
+                      </ul>
+                    </Paper>
+                  )
+                }
+                {this.props.track !== null && this.props.track === "" &&
+                  <Paper style={style} zDepth={2}>
+                    <p> Track not found : error 404 !!! </p>
+                  </Paper>
                 }
               </div>
             </div>
           </Paper>
+
        
   );
   }
@@ -112,14 +114,10 @@ class TrackView extends React.Component {
 const mapStateToProps = state => ({
   appName: state.common.appName,
   track: state.common.track,
-  favoriteList: state.common.favoriteTrackList,
-
 });
 
 const mapDispatchToProps = dispatch => ({
   updateListTrack: (name) => dispatch(searchTrack(name)),
-  addTrackInFavoriteList: (username, title) => dispatch(addTrackInFavoriteList(username,title)),
-  removeTrackInFavoriteList: (username, title) => dispatch(removeTrackInFavoriteList(username,title)),
   reset: () => 
     dispatch({
               type : 'RESET',

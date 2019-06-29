@@ -32,6 +32,7 @@ import loadRecommandationsMovies from '../actions/loadRecommandationsMovies.js';
 import removeMovieInFavoriteList from '../actions/removeMovieInFavoriteList.js';
 import addMovieInFavoriteList from '../actions/addMovieInFavoriteList.js';
 
+
 import './App.css';
 
 const style = {
@@ -112,7 +113,8 @@ class App extends React.Component {
 		});
 		this.props.loadFavoriteList(username).then((response) => {
 			this.props.loadRecommandationsMovies(username);
-		});		
+		});
+		
 	}
 
 	handleConnexionClick = () => {
@@ -315,8 +317,6 @@ const mapStateToProps = state => {
 		popularMovieList: state.common.popularMovieList,
 		favoriteMovieList: state.common.favoriteMovieList,
 		recommandationMovieList: state.common.recommandationMovieList,
-
-
   }};
 
 const mapDispatchToProps = dispatch => ({
