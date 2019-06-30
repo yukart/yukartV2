@@ -59,13 +59,18 @@ class TrackView extends React.Component {
   };
     
   handleButtonTrack = () => {
-    this.props.updateListTrack(this.state.valueTrack);
-    this.props.reset();
     this.setState({
-        valueTrack: ""
+			loading: true,
+	 	});
+    this.props.updateListTrack(this.state.valueTrack).then(() => {
+      this.setState({
+        valueTrack: "",
+        loading: false
+      });
     });
+    
   };
-    addAlbumInFavoriteList = (track) => {
+    addTrackInFavoriteList = (track) => {
     this.props.favoriteList.filter(l => l.title === track.name).length > 0 ? 
       this.props.removeTrackInFavoriteList(this.props.username,track.name) :     
       this.props.addTrackInFavoriteList(this.props.username,track.name);
@@ -87,19 +92,17 @@ class TrackView extends React.Component {
                 </div>
               </div>
               <div className="row">
-                {this.props.track !== null && this.props.track.length !== 0 &&
-                  <div >
-                  <h1 style={{color: '#f16e00'}}> Your research : </h1>
-                  <ListTrack 
-                  tracks = {this.props.track}
-                  favoriteList={this.props.favoriteList}
-                  onAddListPressed={track => this.addTrackInFavoriteList(track)}
-                />
-                </div>
+                {this.props.track !== null && this.props.track.length !== 0 && !this.state.loading && 
+                  <div>
+                    <h1 style={{color: '#f16e00'}}> Your research : </h1>
+                    <ListTrack 
+                    tracks = {this.props.track}
+                    favoriteList={this.props.favoriteList}
+                    onAddListPressed={track => this.addTrackInFavoriteList(track)}
+                    />
+                  </div>
                 }
-                
-             
-                {this.props.track !== null && this.props.track === "" && this.state.loading &&
+                {this.props.track !== null && this.state.loading &&
                   <CircularProgress size={60} thickness={7} color={'#f16e00'}/>
                 }
               </div>

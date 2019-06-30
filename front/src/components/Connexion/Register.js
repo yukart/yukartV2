@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import inscription from '../../actions/inscription.js';
 
@@ -18,10 +19,15 @@ class Register extends React.Component {
       username: "",
       password:"",
       email:"",
+      loading: false
     };
   }
 
   handleClick = () => {
+    this.setState({
+      loading: true
+    });
+    
     this.props.inscription(this.state.username,this.state.password, this.state.email).then(response => {
       switch (this.props.inscriptionTest) {
         case "USER_ALREADY_EXISTS":
@@ -67,6 +73,9 @@ class Register extends React.Component {
              />
            <br/>
            <RaisedButton label="Submit" backgroundColor={'#f16e00'} style={{display: 'flex', justifyContent: 'center'}} onClick={() => this.handleClick()}/>
+            {this.state.loading &&
+                  <CircularProgress size={60} thickness={7} color={'#f16e00'}/>
+            }
           </div>
          </MuiThemeProvider>
       </div>

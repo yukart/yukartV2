@@ -7,6 +7,7 @@ import Register from './Connexion/Register.js';
 import InscriptionConfirmation from './Connexion/InscriptionConfirmation.js';
 import TrackView from './Home/Musique/TrackView.js';
 import FavoriteFilmView from './Home/Film/FavoriteFilmView.js';
+import FavoriteTrackView from './Home/Musique/FavoriteTrackView.js';
 import MovieCard from './Home/Film/MovieCard.js';
 import Carousel from './Home/Film/Carousel.js';
 
@@ -25,10 +26,11 @@ import userIcon from '../user.png';
 import moviesIcon from '../movies_icon.png';
 import { MenuList } from '@material-ui/core';
 
-import loadFavoriteList from '../actions/loadFavoriteList.js';
+import loadFavoriteMovieList from '../actions/loadFavoriteList.js';
 import loadPopularMovies from '../actions/loadPopularMovies.js';
 import loadRecommandationsMovies from '../actions/loadRecommandationsMovies.js';
 
+import loadFavoriteTrackList from '../actions/loadFavoriteTrackList.js';
 import removeMovieInFavoriteList from '../actions/removeMovieInFavoriteList.js';
 import addMovieInFavoriteList from '../actions/addMovieInFavoriteList.js';
 
@@ -89,7 +91,8 @@ class App extends React.Component {
   handleChangeHome = () => {
 		this.setState({show: "home"});
 		this.props.reset();
-  }
+		this.props.loadRecommandationsMovies(this.props.username);
+	}
   handleChangeMusique = () => {
 		this.setState({show: "musique"});
 		this.props.reset();
@@ -110,9 +113,11 @@ class App extends React.Component {
 			usernameSession: username,
 			passwordSession:pass
 		});
-		this.props.loadFavoriteList(username).then((response) => {
+		this.props.loadFavoriteMovieList(username).then((response) => {
 			this.props.loadRecommandationsMovies(username);
 		});		
+
+		this.props.loadFavoriteTrackList(username);
 	}
 
 	handleConnexionClick = () => {
@@ -143,6 +148,11 @@ class App extends React.Component {
 		this.props.favoriteMovieList.filter(l => l.title === movie.title).length > 0 ? 
 			this.props.removeMovieInFavoriteList(this.props.username,movie.title) : 		
 			this.props.addMovieInFavoriteList(this.props.username,movie.title).then((response) => this.props.loadRecommandationsMovies(this.props.username));
+	}
+
+	handleChangeFavoriteTracks = () => {
+		this.setState({show: "favoriteTracks"});
+		this.handleChangeDrawer();
 	}
 
   getContent = () => {
@@ -208,13 +218,18 @@ class App extends React.Component {
 		}
 		else if (this.state.show === "track"){
 		  return (
-		    <TrackView />
+		    <TrackView username={this.state.usernameSession}/>
 		    )
 		}
 		else if (this.state.show === "favoriteMovies"){
 		  return (
 		    <FavoriteFilmView username={this.state.usernameSession}/>
 		    )
+		}
+		else if (this.state.show === "favoriteTracks"){
+			return (
+			  <FavoriteTrackView username={this.state.usernameSession}/>
+			  )
 		}
     };
   
@@ -292,8 +307,13 @@ class App extends React.Component {
 										style={{color: 'white'}}
 										onClick={this.handleChangeFavoriteMovies}
 								/>
+								<MenuItem
+										primaryText={"FAVORITE TRACKS"}
+										style={{color: 'white'}}
+										onClick={this.handleChangeFavoriteTracks}
+								/>
 								</MenuList>
-					
+								
 							</Drawer>
 										
 							{this.getContent()}
@@ -327,7 +347,7 @@ const mapDispatchToProps = dispatch => ({
 			items : null,
 			error : null
 		}),
-	loadFavoriteList: (username) => dispatch(loadFavoriteList(username)),
+	loadFavoriteMovieList: (username) => dispatch(loadFavoriteMovieList(username)),
 	loadPopularMovies: () => dispatch(loadPopularMovies()),
 	loadRecommandationsMovies: (username) => dispatch(loadRecommandationsMovies(username)),
 	reset: () => 
@@ -339,6 +359,7 @@ const mapDispatchToProps = dispatch => ({
 		}),
 	addMovieInFavoriteList: (username, title) => dispatch(addMovieInFavoriteList(username,title)),
 	removeMovieInFavoriteList: (username, title) => dispatch(removeMovieInFavoriteList(username,title)),
+	loadFavoriteTrackList: (username) => dispatch(loadFavoriteTrackList(username))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

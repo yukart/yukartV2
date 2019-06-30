@@ -51,12 +51,12 @@ class FilmView extends React.Component {
   handleButton = () => {
 		this.setState({
 			loading: true,
-	 });
-	  this.props.updateListFilms(this.state.value).then((response) => {
+	 	});
+		this.props.updateListFilms(this.state.value).then((response) => {
 			this.setState({
 				value: "",
 				loading: false
-	   });
+			});
 		});
   };
 

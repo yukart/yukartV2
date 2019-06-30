@@ -2,6 +2,8 @@ package fr.dauphine.sia2.yukArt.services;
 
 import java.util.List;
 
+import com.wrapper.spotify.models.Track;
+
 import fr.dauphine.sia2.tools.Hashage;
 import fr.dauphine.sia2.yukArt.data.DataBase;
 import fr.dauphine.sia2.yukArt.engine.MailManagement;
@@ -50,14 +52,26 @@ public class DatabaseService {
 	}
 
 	public Film addMovieInFavoriteList(String username, String movie) {
-		return db.addMovieInFavoriteList(username,movie);
+		return db.addMovieInFavoriteList(username, movie);
 	}
-	
+
 	public boolean removeMovieInFavoriteList(String username, String movie) {
-		return db.removeMovieInFavoriteList(username,movie);
+		return db.removeMovieInFavoriteList(username, movie);
 	}
 
 	public List<Film> getMovieInFavoriteList(String username) {
 		return db.getMovieInFavoriteList(username);
+	}
+
+	public Track addMusicInFavoriteList(String username, String track) {
+		return db.addMusicInFavoriteList(username, track);
+	}
+
+	public boolean removeTrackInFavoriteList(String username, String track) {
+		return db.removeTrackInFavoriteList(username, track);
+	}
+
+	public List<Track> getTrackInFavoriteList(String username) {
+		return db.getTrackInFavoriteList(username);
 	}
 }

@@ -27,7 +27,7 @@ class TrackCard extends React.Component {
           </div>
           <div className="movie-card-button-container">
             <Button
-              icon={this.props.favoriteList.filter(l => l.title === this.props.movie.title).length ? 'check' : 'plus'}
+              icon={this.props.favoriteList.filter(l => l.name === this.props.track.name).length ? 'check' : 'plus'}
               onButtonPressed={() => this.props.onAddListPressed({
                 name: this.props.track.name,
               })}

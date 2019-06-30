@@ -86,6 +86,24 @@ export default (state = defaultState, action) => {
       return {
         ...state
       };
+    case "FAVORITE_TRACK_ADD_SUCCESS":
+      var tmp=[...state.favoriteTrackList]; //MANDATORY TO SETSTATE THE STORE
+      tmp.push(action.items);
+      state.favoriteTrackList = tmp;
+      return {
+        ...state
+      };
+    case "FAVORITE_TRACK_REMOVE_SUCCESS":
+      var tmp2=[...state.favoriteTrackList]; //MANDATORY TO SETSTATE THE STORE
+      state.favoriteTrackList = tmp2.filter(l=>l.name!==action.items);
+      return {
+        ...state
+      };
+    case "FAVORITE_TRACK_LOAD_SUCCESS":
+      state.favoriteTrackList = action.items;
+      return {
+        ...state
+      };
     case "RESET_SUCCESS":
       state.film= [];
       state.artist= [];

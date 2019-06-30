@@ -16,17 +16,22 @@ import java.util.Random;
 
 import org.json.simple.parser.ParseException;
 
+import com.wrapper.spotify.models.Track;
+
 import fr.dauphine.sia2.yukArt.engine.Comment;
 import fr.dauphine.sia2.yukArt.engine.Factory;
 import fr.dauphine.sia2.yukArt.engine.User;
 import fr.dauphine.sia2.yukArt.objects.Film;
 import fr.dauphine.sia2.yukArt.services.FilmService;
+import fr.dauphine.sia2.yukArt.services.TrackService;
 
 public class DBConnect {
 
 	private Connection connect;
 
 	private FilmService filmService;
+
+	private TrackService trackService;
 
 	public DBConnect() {
 		// File file = new File(
@@ -62,8 +67,9 @@ public class DBConnect {
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
-		
+
 		filmService = new FilmService();
+		trackService = new TrackService();
 	}
 
 	// Vérifié que le login n'est pas déjé pris
@@ -101,7 +107,7 @@ public class DBConnect {
 		return tmp;
 
 	}
-	
+
 	public void updateUserConfirmed(String username) {
 		this.setUpdate("update users set isAccountConfirmed = 1 where login = '" + username + "'");
 	}
@@ -178,7 +184,8 @@ public class DBConnect {
 		ResultSet res;
 		boolean tmp = false;
 		try {
-			String sql = "SELECT * FROM bridgefavoritemovie WHERE login = '" + username + "' AND movie= '" +movie+"';";
+			String sql = "SELECT * FROM bridgefavoritemovie WHERE login = '" + username + "' AND movie= '" + movie
+					+ "';";
 			request = connect.createStatement();
 			res = request.executeQuery(sql);
 			tmp = res.next();
@@ -188,10 +195,11 @@ public class DBConnect {
 		}
 		return tmp;
 	}
+
 	public Film insertMovieInFavoriteList(String username, String movie) {
-		String sql = "Insert into bridgefavoritemovie(login,movie) Values('"+username+"','"+movie+"');";
+		String sql = "Insert into bridgefavoritemovie(login,movie) Values('" + username + "','" + movie + "');";
 		this.setUpdate(sql);
-		
+
 		try {
 			return filmService.searchMovieByTitle(movie);
 		} catch (ParseException e) {
@@ -200,9 +208,9 @@ public class DBConnect {
 		}
 		return null;
 	}
-	
+
 	public boolean removeMovieInFavoriteList(String username, String movie) {
-		String sql = "Delete from bridgefavoritemovie where login='"+username+"' and movie='"+movie+"';";
+		String sql = "Delete from bridgefavoritemovie where login='" + username + "' and movie='" + movie + "';";
 		this.setUpdate(sql);
 		return true;
 	}
@@ -212,7 +220,7 @@ public class DBConnect {
 		ResultSet resultSet;
 		String movie;
 		List<Film> lMovie = new ArrayList<Film>();
-		
+
 		try {
 			request = connect.createStatement();
 			resultSet = request.executeQuery("select movie from bridgefavoritemovie where login='" + username + "'");
@@ -233,4 +241,48 @@ public class DBConnect {
 		return lMovie;
 	}
 
+	public Track insertMusicInFavoriteList(String username, String track) {
+		String sql = "Insert into bridgefavoritemusic(login,music) Values('" + username + "','" + track + "');";
+		this.setUpdate(sql);
+
+		List<Track> results = trackService.searchTrack(track);
+
+		if (results != null) {
+			return results.get(0);
+		}
+		return null;
+
+	}
+
+	public boolean removeTrackInFavoriteList(String username, String track) {
+		String sql = "Delete from bridgefavoritemusic where login='" + username + "' and music='" + track + "';";
+		this.setUpdate(sql);
+		return true;
+	}
+
+	public List<Track> getTrackInFavoriteList(String username) {
+		Statement request;
+		ResultSet resultSet;
+		String track;
+		List<Track> lTrack = new ArrayList<Track>();
+
+		try {
+			request = connect.createStatement();
+			resultSet = request.executeQuery("select music from bridgefavoritemusic where login='" + username + "'");
+
+			while (resultSet.next()) {
+				track = resultSet.getString("music");
+				Track music = null;
+				try {
+					music = trackService.searchTrack(track).get(0);
+				} catch (NullPointerException ex) {
+					continue;
+				}
+				lTrack.add(music);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lTrack;
+	}
 }
