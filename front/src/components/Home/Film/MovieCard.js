@@ -22,7 +22,12 @@ class MovieCard extends React.Component {
               <div className="movie-card-year">{this.props.movie.release_date}</div>
               <div className="movie-card-rating">{this.props.movie.rating}</div>
             </div>
-            <div className="movie-card-description">{this.props.movie.synopsis ? this.props.movie.synopsis.substring(0, TRUNCATE_LENGTH) + '...' : 'No description'}</div>
+            <div className="movie-card-description">
+              <a href={this.props.movie.imdb_url} target = "_blank" alt ="lien imdb">See on IMDB</a>
+            </div>
+            <div className="movie-card-description">
+              {this.props.movie.synopsis ? this.props.movie.synopsis.substring(0, TRUNCATE_LENGTH) + '...' : 'No description'}
+            </div>
           </div>
           <div className="movie-card-button-container">
             <Button

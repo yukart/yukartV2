@@ -123,7 +123,13 @@ public class FilmService {
 		TheMovieDBApiConnect omdb = new TheMovieDBApiConnect();
 		String result = omdb.searchPopular();
 
-		JSONObject jsonResult = omdb.parseToJson(result);
+		JSONObject jsonResult = new JSONObject();
+
+		try {
+			jsonResult = omdb.parseToJson(result);
+		} catch (ParseException ex) {
+			return null;
+		}
 
 		if (jsonResult.get("total_results").toString().equals("0")) {
 			return null;
